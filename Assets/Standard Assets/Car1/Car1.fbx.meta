@@ -1,0 +1,135 @@
+fileFormatVersion: 2
+guid: 299b6a985ac984280855d8bd8e08af46
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Car1_Damaged5
+    100002: Car1_Damaged4
+    100004: Front_Left
+    100006: Front_Right
+    100008: Car1
+    100010: Car1_Damaged3
+    100012: Car1_Damaged1
+    100014: Car1_Damaged2
+    100016: Cube_001
+    100018: Back_Left
+    100020: Cube
+    100022: Back_Right
+    100024: //RootNode
+    400000: Car1_Damaged5
+    400002: Car1_Damaged4
+    400004: Front_Left
+    400006: Front_Right
+    400008: Car1
+    400010: Car1_Damaged3
+    400012: Car1_Damaged1
+    400014: Car1_Damaged2
+    400016: Cube_001
+    400018: Back_Left
+    400020: Cube
+    400022: Back_Right
+    400024: //RootNode
+    2300000: Car1_Damaged5
+    2300002: Car1_Damaged4
+    2300004: Front_Left
+    2300006: Front_Right
+    2300008: Car1
+    2300010: Car1_Damaged3
+    2300012: Car1_Damaged1
+    2300014: Car1_Damaged2
+    2300016: Cube_001
+    2300018: Back_Left
+    2300020: Cube
+    2300022: Back_Right
+    3300000: Car1_Damaged5
+    3300002: Car1_Damaged4
+    3300004: Front_Left
+    3300006: Front_Right
+    3300008: Car1
+    3300010: Car1_Damaged3
+    3300012: Car1_Damaged1
+    3300014: Car1_Damaged2
+    3300016: Cube_001
+    3300018: Back_Left
+    3300020: Cube
+    3300022: Back_Right
+    4300000: Cube_001
+    4300002: Cube
+    4300004: Car1_Damaged5
+    4300006: Car1_Damaged4
+    4300008: Car1_Damaged3
+    4300010: Car1_Damaged2
+    4300012: Car1_Damaged1
+    4300014: Car1
+    4300016: Front_Right
+    4300018: Back_Right
+    4300020: Back_Left
+    4300022: Front_Left
+    6400000: Cube_001
+    6400002: Car1_Damaged1
+    6400004: Car1_Damaged2
+    6400006: Car1
+    6400008: Front_Left
+    6400010: Back_Left
+    6400012: Back_Right
+    6400014: Car1_Damaged3
+    6400016: Front_Right
+    6400018: Car1_Damaged4
+    6400020: Car1_Damaged5
+    6400022: Cube
+    7400000: Default Take
+    11100000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1.20000005
+    meshCompression: 0
+    addColliders: 1
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 1
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  additionalBone: 0
+  userData: 
