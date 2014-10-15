@@ -5,7 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Edelweiss.DecalSystem;
 
-public class BulletDecals : MonoBehaviour {
+public class BulletDecals : MonoBehaviour 
+{
 	//public static GunShooting gs;
 
 	private GunDefinitions gunDefs;
@@ -66,14 +67,36 @@ public class BulletDecals : MonoBehaviour {
 		}
 	}
 
+	public void CalculateVectors( out Vector3 upDir, out Vector3 forwardDir, RaycastHit rayData, Ray ray )
+	{
+		upDir = - rayData.normal;
+
+		Vector3 linePoint;
+		Vector3 lineVec; //Directional vector
+		//Plane1 is the plane from which the shot is fired.
+		//Plane2 is the plane which the decal gets applied to.
+		//					         								    	//Plane1 Normal           //Plane1 Position			     //Plane2 Normal //Plane2 Position
+		VectorExtras.PlanePlaneIntersection( out linePoint, out lineVec, Camera.main.transform.right, Camera.main.transform.position, rayData.normal, rayData.point );
+
+		forwardDir = lineVec;
+	}
+
 	public void OnShotFired( BulletInfo[] bullets )
 	{
 		for(int i = 0; i < bullets.Length; i++){
 				Ray l_Ray = bullets[i].ray;
 				RaycastHit l_RaycastHit = bullets[i].data;
-				Vector3 l_ProjectorPosition = l_RaycastHit.point - (decalProjectorOffset * l_Ray.direction.normalized);
-				Vector3 l_ForwardDirection = Camera.main.transform.up;
-				Vector3 l_UpDirection = - Camera.main.transform.forward;
+			    //Vector3 l_ProjectorPosition = l_RaycastHit.point - (decalProjectorOffset * l_Ray.direction.normalized);
+				Vector3 l_ProjectorPosition = l_RaycastHit.point - (decalProjectorOffset * l_RaycastHit.normal.normalized);
+				//Vector3 l_ForwardDirection = Camera.main.transform.up;
+				//Vector3 l_UpDirection = - Camera.main.transform.forward;
+
+
+				Vector3 l_UpDirection;
+				Vector3 l_ForwardDirection;
+				CalculateVectors( out l_UpDirection, out l_ForwardDirection, l_RaycastHit, l_Ray );
+				
+				Debug.Log ("Normal: "+ l_UpDirection +" Forward: "+ l_ForwardDirection);
 				Quaternion l_ProjectorRotation = Quaternion.LookRotation(l_ForwardDirection, l_UpDirection);
 				
 				// Randomize the rotation.

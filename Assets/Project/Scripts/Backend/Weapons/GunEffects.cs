@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 ///////////////////////////////////
-/// By: Stephan "Bamboy" Ennen ////
+/// By: Stephan "Bamboy" Ennen //// 
 /// Last Updated: 08/29/14     ////
 ///////////////////////////////////
 
