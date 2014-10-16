@@ -1,9 +1,9 @@
-﻿//Created by: Nick Evans
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Edelweiss.DecalSystem;
+
+//Created by: Nick Evans
 
 public class BulletDecals : MonoBehaviour 
 {
@@ -13,6 +13,7 @@ public class BulletDecals : MonoBehaviour
 	// The prefab which contains the DS_Decals script with already set material and
 	// uv rectangles.
 	public GameObject decalsPrefab;
+	public Transform shootPos;
 	
 	// The reference to the instantiated prefab's DS_Decals instance.
 	private DS_Decals m_Decals;
@@ -49,6 +50,11 @@ public class BulletDecals : MonoBehaviour
 	}
 	
 	private void Start () {
+		if( shootPos == null )
+		{
+			Debug.LogError("No shoot pos transform was given!", this);
+			return;
+		}
 		// Instantiate the prefab and get its decals instance.
 		GameObject l_Instance = Instantiate (decalsPrefab) as GameObject;
 		m_Decals = l_Instance.GetComponentInChildren <DS_Decals> ();
@@ -75,8 +81,8 @@ public class BulletDecals : MonoBehaviour
 		Vector3 lineVec; //Directional vector
 		//Plane1 is the plane from which the shot is fired.
 		//Plane2 is the plane which the decal gets applied to.
-		//					         								    	//Plane1 Normal           //Plane1 Position			     //Plane2 Normal //Plane2 Position
-		VectorExtras.PlanePlaneIntersection( out linePoint, out lineVec, Camera.main.transform.right, Camera.main.transform.position, rayData.normal, rayData.point );
+		//					         								   //Plane1 Normal   //Plane1 Position	//Plane2 Normal //Plane2 Position
+		VectorExtras.PlanePlaneIntersection( out linePoint, out lineVec, shootPos.right, shootPos.position, rayData.normal, rayData.point );
 
 		forwardDir = lineVec;
 	}
@@ -87,7 +93,7 @@ public class BulletDecals : MonoBehaviour
 				Ray l_Ray = bullets[i].ray;
 				RaycastHit l_RaycastHit = bullets[i].data;
 			    //Vector3 l_ProjectorPosition = l_RaycastHit.point - (decalProjectorOffset * l_Ray.direction.normalized);
-				Vector3 l_ProjectorPosition = l_RaycastHit.point - (decalProjectorOffset * l_RaycastHit.normal.normalized);
+				Vector3 l_ProjectorPosition = l_RaycastHit.point - (decalProjectorOffset * l_RaycastHit.normal);
 				//Vector3 l_ForwardDirection = Camera.main.transform.up;
 				//Vector3 l_UpDirection = - Camera.main.transform.forward;
 
