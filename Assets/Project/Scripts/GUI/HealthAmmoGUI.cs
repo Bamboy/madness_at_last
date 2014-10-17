@@ -5,8 +5,8 @@ using Stats;
 public class HealthAmmoGUI: MonoBehaviour {
 	private WeaponInventory wi;
 	private PlayerUnit pu;
-	public GUISkin AmmoSkin;
-	public GUISkin HealthSkin;
+	//public GUISkin AmmoSkin;
+	//public GUISkin HealthSkin;
 	void Start(){
 		wi = GameObject.Find("Inventory").GetComponent<WeaponInventory>();
 		pu = PlayerUnit.instance;
@@ -20,7 +20,7 @@ public class HealthAmmoGUI: MonoBehaviour {
 		GUI.Box(new Rect(5, 5, 290 * (pu.health.Current/pu.health.Max), 90), "");
 	}
 	void DrawAmmo(){
-		GUI.skin = AmmoSkin;
+		//GUI.skin = AmmoSkin;
 		GUI.BeginGroup(new Rect(Screen.width - 150f, Screen.height - 150f, 150, 150), "");
 		GUI.Box(new Rect(0, 0, 150, 150), "");
 		GUI.Label(new Rect(5, 130, 50, 25), "Ammo:");

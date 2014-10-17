@@ -20,9 +20,9 @@ public class DrifterInput : MonoBehaviour
 		//new KeyManager();
 		//KeyManager.Load();
 		if(File.Exists(Application.persistentDataPath + "/KeyMapping.dat")){
-			KeyManager.Load();
+			Utils.KeyManager.Load();
 		} else {
-			KeyManager.SetDefaultKeys();
+			Utils.KeyManager.SetDefaultKeys();
 		}
 		drifter = GetComponent< FirstPersonDrifter >();
 
@@ -35,11 +35,11 @@ public class DrifterInput : MonoBehaviour
 		if( sendInputs )
 		{
 			drifter.SetInputs(
-				Input.GetKey(KeyManager.GetKeyCode("left")) ? -1.0f : Input.GetKey(KeyManager.GetKeyCode("right")) ? 1.0f : 0.0f,
-				Input.GetKey(KeyManager.GetKeyCode("forward")) ? 1.0f : Input.GetKey(KeyManager.GetKeyCode("back")) ? -1.0f : 0.0f,
-				Input.GetKey(KeyManager.GetKeyCode("run")),
-				Input.GetKey(KeyManager.GetKeyCode("jump")),
-				Input.GetKey(KeyManager.GetKeyCode("crouch"))
+				Input.GetKey(Utils.KeyManager.GetKeyCode("left")) ? -1.0f : Input.GetKey(Utils.KeyManager.GetKeyCode("right")) ? 1.0f : 0.0f,
+				Input.GetKey(Utils.KeyManager.GetKeyCode("forward")) ? 1.0f : Input.GetKey(Utils.KeyManager.GetKeyCode("back")) ? -1.0f : 0.0f,
+				Input.GetKey(Utils.KeyManager.GetKeyCode("run")),
+				Input.GetKey(Utils.KeyManager.GetKeyCode("jump")),
+				Input.GetKey(Utils.KeyManager.GetKeyCode("crouch"))
 				);
 		}
 		else
