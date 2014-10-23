@@ -1,0 +1,158 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &100000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400000}
+  - 114: {fileID: 11400000}
+  m_Layer: 0
+  m_Name: === Gun Definitions ===
+  m_TagString: GameController
+  m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &400000
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 894e6b5ec841b5d4ab92145ea0c59506, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunDefinitions:
+  - name: Pistol
+    firetype: 1
+    fireRate: .100000001
+    bulletsPerShot: 1
+    accuracy: 2
+    recoil: .649999976
+    distance: 0
+    damageRange: {x: 6, y: 9}
+    damageType: 0
+    damageEffects: []
+    bulletPrefab: {fileID: 0}
+    bulletPrefabForce: 0
+    ammoMax: 124
+    clipSize: 8
+    reloadTime: .800000012
+    canSaveUnusedBullets: 1
+    prefab: {fileID: 100036, guid: 0d3c5fa66ae059b4c907a4b8f531f455, type: 2}
+    positionOffset: {x: .365239114, y: -.402316988, z: .674083173}
+    rotationOffset: {x: 0, y: 0, z: 0}
+    sizeOffset: {x: 1, y: 1, z: 1}
+    guiWeaponIcon: {fileID: 0}
+    guiAmmoIcon: {fileID: 0}
+    shotFired: {fileID: 0}
+    clipEmpty: {fileID: 0}
+    reloading: {fileID: 0}
+    ammoAdded: {fileID: 0}
+  - name: Shotgun
+    firetype: 1
+    fireRate: .850000024
+    bulletsPerShot: 16
+    accuracy: 3.5
+    recoil: 7.5
+    distance: 0
+    damageRange: {x: 3, y: 8}
+    damageType: 0
+    damageEffects: []
+    bulletPrefab: {fileID: 0}
+    bulletPrefabForce: 0
+    ammoMax: 32
+    clipSize: 8
+    reloadTime: 4.5
+    canSaveUnusedBullets: 1
+    prefab: {fileID: 100016, guid: 7e062012fa0fd7c4d9a755c4b2effc98, type: 2}
+    positionOffset: {x: .253233314, y: -.308603287, z: .538157821}
+    rotationOffset: {x: 0, y: 90, z: 0}
+    sizeOffset: {x: .75, y: 1, z: -1}
+    guiWeaponIcon: {fileID: 0}
+    guiAmmoIcon: {fileID: 0}
+    shotFired: {fileID: 0}
+    clipEmpty: {fileID: 0}
+    reloading: {fileID: 0}
+    ammoAdded: {fileID: 0}
+  - name: Rifle
+    firetype: 0
+    fireRate: .0500000007
+    bulletsPerShot: 1
+    accuracy: 1.25
+    recoil: 1
+    distance: 0
+    damageRange: {x: 7, y: 14}
+    damageType: 0
+    damageEffects: []
+    bulletPrefab: {fileID: 0}
+    bulletPrefabForce: 0
+    ammoMax: 512
+    clipSize: 30
+    reloadTime: 1.85000002
+    canSaveUnusedBullets: 0
+    prefab: {fileID: 100020, guid: c97876a4395cc62478312d351f0bf0aa, type: 2}
+    positionOffset: {x: .252099007, y: -.58554548, z: .737855017}
+    rotationOffset: {x: 0, y: 90, z: 0}
+    sizeOffset: {x: 1, y: 1, z: 1}
+    guiWeaponIcon: {fileID: 0}
+    guiAmmoIcon: {fileID: 0}
+    shotFired: {fileID: 0}
+    clipEmpty: {fileID: 0}
+    reloading: {fileID: 0}
+    ammoAdded: {fileID: 0}
+  - name: RPG
+    firetype: 1
+    fireRate: 2.5
+    bulletsPerShot: 1
+    accuracy: 2.25
+    recoil: 12.5
+    distance: 100
+    damageRange: {x: 125, y: 1250}
+    damageType: 0
+    damageEffects: []
+    bulletPrefab: {fileID: 0}
+    bulletPrefabForce: 10
+    ammoMax: 5
+    clipSize: 1
+    reloadTime: 2.5
+    canSaveUnusedBullets: 1
+    prefab: {fileID: 100008, guid: 3d4c3a40124de364eb5eae54ec8939ba, type: 2}
+    positionOffset: {x: .31837061, y: -.319335908, z: .465061694}
+    rotationOffset: {x: 0, y: -90, z: 0}
+    sizeOffset: {x: .75, y: 1, z: 1}
+    guiWeaponIcon: {fileID: 0}
+    guiAmmoIcon: {fileID: 0}
+    shotFired: {fileID: 0}
+    clipEmpty: {fileID: 0}
+    reloading: {fileID: 0}
+    ammoAdded: {fileID: 0}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 100000}
+  m_IsPrefabParent: 1
+  m_IsExploded: 1
