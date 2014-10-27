@@ -28,16 +28,17 @@ namespace Utils{
 			AddKeyCode("right", KeyCode.D);
 			AddKeyCode("jump", KeyCode.Space);
 			AddKeyCode("run", KeyCode.LeftShift);
-			AddKeyCode("crouch", KeyCode.LeftControl);
+			//AddKeyCode("crouch", KeyCode.LeftControl);
 		}
 		public static void ResetDefaultKeys(){
-			EditKeyCode("forward", KeyCode.W);
-			EditKeyCode("back", KeyCode.S);
-			EditKeyCode("left", KeyCode.A);
-			EditKeyCode("right", KeyCode.D);
-			EditKeyCode("jump", KeyCode.Space);
-			EditKeyCode("run", KeyCode.LeftShift);
-			EditKeyCode("crouch", KeyCode.LeftControl);
+			File.Delete(in_LoadPath);
+			AddKeyCode("forward", KeyCode.W);
+			AddKeyCode("back", KeyCode.S);
+			AddKeyCode("left", KeyCode.A);
+			AddKeyCode("right", KeyCode.D);
+			AddKeyCode("jump", KeyCode.Space);
+			AddKeyCode("run", KeyCode.LeftShift);
+			//AddKeyCode("crouch", KeyCode.LeftControl);
 		}
 		public static bool Save(){
 			if(keyCodes != null && keyCodes.Count != 0){

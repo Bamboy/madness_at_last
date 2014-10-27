@@ -29,8 +29,6 @@ namespace UI{
 		Vector3 Scale;
 		void Awake(){
 			instance = this;
-			new LocalStorage();
-			new Utils.KeyManager();
 			IsWindowed = Screen.fullScreen;
 			Abilities = new bool[40];
 			CantToggle = new bool[40];
@@ -38,11 +36,6 @@ namespace UI{
 			Toggle = new bool[2];
 			width = "";
 			height = "";
-			if(File.Exists(Application.persistentDataPath + "/KeyMapping.dat")){
-				Utils.KeyManager.Load();
-			} else {
-				Utils.KeyManager.SetDefaultKeys();
-			}
 			KeyToggle = new bool[Utils.KeyManager.keyCodes.Count];
 		}
 		void OnGUI(){

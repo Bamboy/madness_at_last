@@ -17,16 +17,7 @@ public class DrifterInput : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		//new KeyManager();
-		//KeyManager.Load();
-		if(File.Exists(Application.persistentDataPath + "/KeyMapping.dat")){
-			Utils.KeyManager.Load();
-		} else {
-			Utils.KeyManager.SetDefaultKeys();
-		}
 		drifter = GetComponent< FirstPersonDrifter >();
-
-
 	}
 	
 	// Update is called once per frame
