@@ -59,13 +59,13 @@ public class GunShooting : MonoBehaviour
 	{ 
 		reloadTimerDone = false;
 		float time = gunDefs.GetReloadTime( weapon );
-		SendMessage("OnReloadStart", time, SendMessageOptions.DontRequireReceiver );
+		transform.parent.gameObject.BroadcastMessage("OnReloadStart", time, SendMessageOptions.DontRequireReceiver );
 		Invoke( "Timer_reload", time );
 	}
 	void Timer_reload()
 	{ 
-		reloadTimerDone = true; 
-		SendMessage("OnReloadFinished", SendMessageOptions.DontRequireReceiver );
+		reloadTimerDone = true;
+		transform.parent.gameObject.BroadcastMessage("OnReloadFinished", SendMessageOptions.DontRequireReceiver );
 		inv.TransferAmmoToClip( weapon ); 
 	}
 	#endregion
@@ -171,7 +171,7 @@ public class GunShooting : MonoBehaviour
 		else
 		{
 			BulletInfo[] bullets = FireAsRaycast();
-			gameObject.SendMessage("OnShotFired", bullets, SendMessageOptions.DontRequireReceiver ); //Sends a message out to all attached gameobjects.
+			transform.parent.gameObject.BroadcastMessage("OnShotFired", bullets, SendMessageOptions.DontRequireReceiver ); //Sends a message out to all attached gameobjects.
 		}
 	}
 	private BulletInfo[] FireAsRaycast () //Return array of raycasthit so we can apply damage to all hit objects.
