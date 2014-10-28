@@ -2,11 +2,15 @@
 using System.Collections;
 
 public class WeaponAnimation : MonoBehaviour {
+	private GunDefinitions gunDef;
+	private WeaponInventory weapInv;
 	private Animator anim;
 	private bool reload;
 
 	private void Awake(){
 		anim = GetComponent<Animator>();
+		gunDef = GunDefinitions.Get();
+		weapInv = transform.root.GetComponentInChildren<WeaponInventory>();
 	}
 	public void Update(){
 		if(!reload){
@@ -22,11 +26,14 @@ public class WeaponAnimation : MonoBehaviour {
 			anim.Play("idle_oneshot");
 		}
 	}
-	public void OnReloadStart(){
+	public void OnReloadStart(float time){
 		anim.Play("reload");
 		reload = true;
+		StartCoroutine(Wait(time));
+
 	}
-	public void OnReloadFinished(){
+	private IEnumerator Wait(float time){
+		yield return new WaitForSeconds(time);
 		reload = false;
 	}
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 ///////////////////////////////////
 /// By: Stephan "Bamboy" Ennen //// 
-/// Last Updated: 08/29/14     ////
+/// Last Updated: 10/28/14     ////
 ///////////////////////////////////
 
 //This script handles all of the gun effects, visuals, and sounds.
@@ -13,10 +13,12 @@ using System.Collections.Generic;
 public class GunEffects : MonoBehaviour 
 {
 	public GameObject muzzleEffect;
+
+	public GameObject[] weapons;
+
+
 	private string weapon; //Our current weapon ID.
-
 	private Dictionary<string, WeaponModelData> gunModels;
-
 	private GunDefinitions gunDefs;
 	void Start () { Init(); }
 	void Init()
@@ -43,6 +45,12 @@ public class GunEffects : MonoBehaviour
 
 	bool WeaponExistsForUs( string id ) //Returns if the weapon has been spawned for us yet.
 	{
+		if( gunModels == null )
+		{
+			gunModels = new Dictionary<string, WeaponModelData>();
+			return false;
+		}
+
 		if( gunModels.ContainsKey( id ) )
 			return true;
 		else
@@ -61,6 +69,7 @@ public class GunEffects : MonoBehaviour
 		}
 	}
 
+	#region Weapon adding
 	public void AddWeapon( string id, bool startActive ) //Spawns the weapon and adds its values to our dictionary.
 	{													  //Optionally, it will also switch to that weapon.
 		Init(); //Sometimes this function can be called before our vars are set up. Do this now if we have not!
@@ -88,6 +97,33 @@ public class GunEffects : MonoBehaviour
 		if( startActive )
 			SetWeapon( id );
 	}
+
+	public void ManualSetup()
+	{
+		if( weapons == null )
+			return;
+		else
+		{
+			foreach( GameObject model in weapons )
+			{
+				if( WeaponExistsForUs( model.name ) == false && gunDefs.guns.ContainsKey( model.name ) == true )
+				{
+					WeaponModelData newModel = new WeaponModelData( model.name, model, false );
+					foreach( Transform child in model.transform )
+					{
+						if( child.gameObject.tag == "WeaponMuzzle" )
+						{
+							newModel.muzzle = child;
+							break;
+						}
+					}
+					gunModels.Add( model.name, newModel );
+				}
+			}
+		}
+	}
+	#endregion Weapon adding
+
 
 	private void SetWeapon( string id )
 	{

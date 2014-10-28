@@ -7,8 +7,11 @@ namespace Stats
 	{
 		public override void Die(System.Object source)
 		{
-			base.Die(source);
+			//AIFactory.aiCount -= 1;
 			GlobalStats.current.kills++;
+			base.Die(source);
+
+
 		}
 	}
 }

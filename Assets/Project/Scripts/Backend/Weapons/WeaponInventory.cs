@@ -28,10 +28,11 @@ public class WeaponInventory : MonoBehaviour
 
 		//BUG: pistol is not rendering for the viewport camera.
 		#region BUG: Rotation calculation is broken as soon as the camera rotates. This is a workaround...
-		gunEffects.AddWeapon( "Pistol", true ); //AddWeapon needs to be changed back to private when this gets fixed!
-		gunEffects.AddWeapon( "Shotgun", false );
-		gunEffects.AddWeapon( "Rifle", false );
-		gunEffects.AddWeapon( "RPG", false );
+		//gunEffects.AddWeapon( "Pistol", true ); //AddWeapon needs to be changed back to private when this gets fixed!
+		//gunEffects.AddWeapon( "Shotgun", false );
+		//gunEffects.AddWeapon( "Rifle", false );
+		//gunEffects.AddWeapon( "RPG", false );
+		gunEffects.ManualSetup();
 		#endregion
 
 		SetActiveWeapon( activeSlot );
