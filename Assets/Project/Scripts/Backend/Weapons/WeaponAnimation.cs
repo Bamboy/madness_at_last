@@ -29,11 +29,8 @@ public class WeaponAnimation : MonoBehaviour {
 	public void OnReloadStart(float time){
 		anim.Play("reload");
 		reload = true;
-		StartCoroutine(Wait(time));
-
 	}
-	private IEnumerator Wait(float time){
-		yield return new WaitForSeconds(time);
+	public void OnReloadFinished(){
 		reload = false;
 	}
 }
