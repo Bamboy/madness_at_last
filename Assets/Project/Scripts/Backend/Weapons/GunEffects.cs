@@ -12,6 +12,7 @@ using System.Collections.Generic;
 //Newly created gunmodels will be a child of this script's transform!
 public class GunEffects : MonoBehaviour 
 {
+	public AudioClip shotFiredAudio;
 	public GameObject muzzleEffect;
 
 	public GameObject[] weapons;
@@ -160,7 +161,12 @@ public class GunEffects : MonoBehaviour
 			                             
 	}
 
-
+	//Called from GunShooting via SendMessage
+	void OnShotFired()
+	{
+		DoMuzzleBlast();
+		AudioHelper.PlayClipAtPoint( shotFiredAudio, gunModels[ weapon ].muzzle.position, 1.0f, SoundType.Effect );
+	}
 
 
 

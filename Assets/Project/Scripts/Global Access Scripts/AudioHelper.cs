@@ -3,7 +3,7 @@ using System.Collections;
 
 ///////////////////////////////////
 /// By: Stephan "Bamboy" Ennen ////
-/// Last Updated: 09/16/14     ////
+/// Last Updated: 10/28/14     ////
 ///////////////////////////////////
 
 
@@ -91,77 +91,69 @@ public class AudioHelper : MonoBehaviour
 		{
 			case SoundType.None:
 				return volume * masterVolume;
-				break;
 			case SoundType.Effect:
 				return volume * r_effectVolume;
-				break;
 			case SoundType.Music:
 				return volume * r_musicVolume;
-				break;
 			case SoundType.Voice:
 				return volume * r_voiceVolume;
-				break;
 		}
 		return 0.0f;
 	}
 	#endregion
 
-	// Use this for initialization
-	void Start () 
-	{
-	
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-	
-	}
-
 	// A replacement for "AudioSource.PlayClipAtPoint". Returns the created AudioSource. Deletes the object after playing. 
 	// Parent transform is for organization or if we want the sound to come from a specific object as it moves.
 	#region Play Clip At Point
-	public AudioSource PlayClipAtPoint( AudioClip clip, Vector3 pos )
+	public static AudioSource PlayClipAtPoint( AudioClip clip, Vector3 pos )
 	{
 		return PlayClipAtPoint( clip, pos, 1.0f );
 	}
-	public AudioSource PlayClipAtPoint( AudioClip clip, Vector3 pos, float volume )
+	public static AudioSource PlayClipAtPoint( AudioClip clip, Vector3 pos, float volume )
 	{
 		return PlayClipAtPoint( clip, pos, volume, SoundType.None );
 	}
-	public AudioSource PlayClipAtPoint( AudioClip clip, Vector3 pos, float volume, SoundType type )
+	public static AudioSource PlayClipAtPoint( AudioClip clip, Vector3 pos, float volume, SoundType type )
 	{
-		return PlayClipAtPoint( clip, pos, volume, type, this.transform );
+		return PlayClipAtPoint( clip, pos, volume, type, null );
 	}
-	public AudioSource PlayClipAtPoint( AudioClip clip, Vector3 pos, float volume, SoundType type, Transform parent )
+	public static AudioSource PlayClipAtPoint( AudioClip clip, Vector3 pos, float volume, SoundType type, Transform parent )
 	{
-		GameObject obj = new GameObject("AudioClip (Temp)");
-		obj.transform.position = pos;
-		obj.transform.parent = parent;
-
-		AudioSource audio = (AudioSource)obj.AddComponent<AudioSource>();
-		audio.clip = clip;
-
-		switch( type )
+		if( clip != null )
 		{
-			case SoundType.None:
-				audio.volume = volume * masterVolume;
-				break;
-			case SoundType.Effect:
-				audio.volume = volume * r_effectVolume;
-				break;
-			case SoundType.Music:
-				audio.volume = volume * r_musicVolume;
-				break;
-			case SoundType.Voice:
-				audio.volume = volume * r_voiceVolume;
-				break;
+			GameObject obj = new GameObject("AudioClip (Temp)");
+			obj.transform.position = pos;
+			obj.transform.parent = parent;
+
+			AudioSource audio = (AudioSource)obj.AddComponent<AudioSource>();
+			audio.clip = clip;
+
+			switch( type )
+			{
+				case SoundType.None:
+					audio.volume = volume * masterVolume;
+					break;
+				case SoundType.Effect:
+					audio.volume = volume * r_effectVolume;
+					break;
+				case SoundType.Music:
+					audio.volume = volume * r_musicVolume;
+					break;
+				case SoundType.Voice:
+					audio.volume = volume * r_voiceVolume;
+					break;
+			}
+
+			audio.Play ();
+			GameObject.Destroy( obj, clip.length ); //Destroy the object after the sound is done playing.
+
+			return audio;
 		}
-
-		audio.Play ();
-		GameObject.Destroy( obj, clip.length ); //Destroy the object after the sound is done playing.
-
-		return audio;
+		else
+		{
+			Debug.LogWarning("Given AudioClip was null!");
+			return null;
+		}
 	}
 	#endregion
 

@@ -111,11 +111,11 @@ public class WeaponInventory : MonoBehaviour
 			{
 				int missingAmmo = clipSize - ourWeapon.clipAmmo;
 				int ammoToTransfer = Mathf.Min( ourWeapon.ammo, missingAmmo ); //This should ensure that we don't lose any ammo during the transfer.
-				Debug.Log("Transfer for "+ weapon +". Missing from clip: "+ missingAmmo +", Reserve Ammo: "+ ourWeapon.ammo +", Ammo being transfered: "+ ammoToTransfer +".",this);
+				//Debug.Log("Transfer for "+ weapon +". Missing from clip: "+ missingAmmo +", Reserve Ammo: "+ ourWeapon.ammo +", Ammo being transfered: "+ ammoToTransfer +".",this);
 
 				int newClip = ourWeapon.clipAmmo + ammoToTransfer;
 				int newReserve = ourWeapon.ammo - ammoToTransfer;
-				Debug.Log("Transfer results: New clip: "+ newClip +", New reserve: "+ newReserve +".", this);
+				//Debug.Log("Transfer results: New clip: "+ newClip +", New reserve: "+ newReserve +".", this);
 				slots[GetWeaponIndex( weapon )].clipAmmo = newClip; slots[GetWeaponIndex( weapon )].ammo = newReserve;
 				return true;
 			}
@@ -236,11 +236,7 @@ public class WeaponInventory : MonoBehaviour
 
 	#endregion
 
-	//Called from GunShooting via SendMessage
-	void OnShotFired()
-	{
-		gunEffects.DoMuzzleBlast();
-	}
+
 
 
 
