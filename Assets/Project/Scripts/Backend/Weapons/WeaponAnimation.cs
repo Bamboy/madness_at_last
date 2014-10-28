@@ -9,12 +9,13 @@ public class WeaponAnimation : MonoBehaviour {
 		anim = GetComponent<Animator>();
 	}
 	public void Update(){
-		if(Input.GetKey(Utils.KeyManager.GetKeyCode("forward"))){
-			anim.Play("walking");
-		} else {
-			anim.Play("idle");
+		if(!reload){
+			if(Input.GetKey(Utils.KeyManager.GetKeyCode("forward"))){
+				anim.Play("walking");
+			} else {
+				anim.Play("idle");
+			}
 		}
-		Debug.Log(reload);
 	}
 	public void OnShotFired(){
 		if(!reload){
@@ -22,7 +23,7 @@ public class WeaponAnimation : MonoBehaviour {
 		}
 	}
 	public void OnReloadStart(){
-		anim.CrossFade("reload", 0.2f);
+		anim.Play("reload");
 		reload = true;
 	}
 	public void OnReloadFinished(){
