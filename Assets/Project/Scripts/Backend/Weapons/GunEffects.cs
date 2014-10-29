@@ -153,11 +153,11 @@ public class GunEffects : MonoBehaviour
 	public void DoMuzzleBlast()
 	{
 		Transform muzzle = gunModels[ weapon ].muzzle;
-		if( muzzle != null )
-		{
+		//if( muzzle != null )
+		//{
 			GameObject effect = (GameObject)Instantiate( muzzleEffect, muzzle.position, muzzle.rotation );
 			effect.transform.parent = muzzle;
-		}
+		//}
 			                             
 	}
 
