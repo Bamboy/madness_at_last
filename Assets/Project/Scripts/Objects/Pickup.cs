@@ -3,10 +3,10 @@
 /// By: Cristian "vozochris" Vozoca
 public class Pickup : MonoBehaviour
 {
-	void OnTriggerEnter(Collider collider)
+	void OnCollisionEnter(Collision c)
 	{
-		if (collider.tag == "Player")
-			OnPlayerEnter(collider.gameObject);
+		if (c.collider.tag == "Player")
+			OnPlayerEnter(c.collider.gameObject);
 	}
 
 	protected virtual void OnPlayerEnter(GameObject player)
