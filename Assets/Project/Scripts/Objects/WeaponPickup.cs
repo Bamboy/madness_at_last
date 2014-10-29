@@ -3,13 +3,38 @@
 /// By: Cristian "vozochris" Vozoca
 public class WeaponPickup : Pickup
 {
+	public bool giveWeaponToo;
 	public string weapon;
-	public int amount;
+	public int ammo;
 
-	protected override void OnPlayerEnter(GameObject player)
+	protected override void OnPlayerEnter(GameObject obj)
 	{
-		WeaponInventory weaponInventory = player.GetComponentInChildren<WeaponInventory>();
-		if (weaponInventory.AddAmmoFor(weapon, amount))
-			base.OnPlayerEnter(player);
+		Debug.Log ("collision");
+		if( obj.tag != "Player" )
+			return;
+
+		WeaponInventory weaponInventory = obj.GetComponentInChildren<WeaponInventory>();
+
+		if( giveWeaponToo )
+		{
+			if( weaponInventory.AddNewWeapon( weapon, ammo ) )
+			{
+				base.OnPlayerEnter( obj );
+			}
+			else if( weaponInventory.AddAmmoFor( weapon, ammo ) )
+			{
+				base.OnPlayerEnter( obj );
+			}
+		}
+		else
+		{
+			if( weaponInventory.AddAmmoFor( weapon, ammo ) )
+			{
+				base.OnPlayerEnter( obj );
+			}
+		}
+
+
+
 	}
 }

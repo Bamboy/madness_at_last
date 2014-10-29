@@ -3,7 +3,7 @@ using System.Collections;
 
 ///////////////////////////////////
 /// By: Stephan "Bamboy" Ennen ////
-/// Last Updated: 08/29/14     ////
+/// Last Updated: 10/29/14     ////
 ///////////////////////////////////
 
 //Holds the weapons we currently have, and then passes weapon ids to GunShooting so it can simulate behaviours.
@@ -225,8 +225,35 @@ public class WeaponInventory : MonoBehaviour
 			else
 				return false; //We dont have any empty slots to put a weapon in.
 		}
-
 	}
+	public bool AddNewWeapon( string id, int ammo ) //Adds a new weapon more easily than the above function.
+	{
+		if( HasWeapon( id ) )
+			return false;
+
+		int index = GetWeaponIndex( "null" );
+		if( index != -1 )
+		{
+			slots[ index ].Weapon = id; //Note that this clears all of the weaponslot data!
+
+			//Choose a random amount of ammo to put in the clip...
+			//Choose a random range between 0 and the size of clip.. but DO NOT exceed 'ammo'.
+			int ammoForClip = Mathf.Min( Random.Range(0, gunDef.GetClipSize(id)), ammo );
+			//Take our clip ammo out of total, DO NOT exceed the total ammo allowed to be carried.
+			ammo = Mathf.Min( ammo - ammoForClip, gunDef.GetMaxAmmo(id) );
+
+			slots[ index ].clipAmmo = ammoForClip;
+			slots[ index ].ammo = ammo;
+			return true;
+		}
+		else
+			return false; //We dont have any empty slots to put a weapon in.
+	}
+
+
+
+
+
 	public WeaponSlot ReplaceWeapon( int index, WeaponSlot newSlot ) 
 	{ //Forcefully replaces the weapon in the specified slot. The returned WeaponSlot was the weapon that got replaced. (In case we want to drop it on the ground, or something.)
 		WeaponSlot oldSlot = slots[ index ];
