@@ -9,7 +9,7 @@ public class WeaponPickup : Pickup
 
 	protected override void OnPlayerEnter(GameObject obj)
 	{
-		Debug.Log ("collision");
+		//Debug.Log ("collision");
 		if( obj.tag != "Player" )
 			return;
 
