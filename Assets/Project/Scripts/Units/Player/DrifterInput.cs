@@ -26,11 +26,11 @@ public class DrifterInput : MonoBehaviour
 		if( sendInputs )
 		{
 			drifter.SetInputs(
-				Input.GetKey(Utils.KeyManager.GetKeyCode("left")) ? -1.0f : Input.GetKey(Utils.KeyManager.GetKeyCode("right")) ? 1.0f : 0.0f,
-				Input.GetKey(Utils.KeyManager.GetKeyCode("forward")) ? 1.0f : Input.GetKey(Utils.KeyManager.GetKeyCode("back")) ? -1.0f : 0.0f,
-				Input.GetKey(Utils.KeyManager.GetKeyCode("run")),
-				Input.GetKey(Utils.KeyManager.GetKeyCode("jump")),
-				Input.GetKey(Utils.KeyManager.GetKeyCode("crouch"))
+				Input.GetKey(Utils.KeyManager.Get("left")) ? -1.0f : Input.GetKey(Utils.KeyManager.Get("right")) ? 1.0f : 0.0f,
+				Input.GetKey(Utils.KeyManager.Get("forward")) ? 1.0f : Input.GetKey(Utils.KeyManager.Get("back")) ? -1.0f : 0.0f,
+				Input.GetKey(Utils.KeyManager.Get("run")),
+				Input.GetKey(Utils.KeyManager.Get("jump")),
+				Input.GetKey(Utils.KeyManager.Get("crouch"))
 				);
 		}
 		else

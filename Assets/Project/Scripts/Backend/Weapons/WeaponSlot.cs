@@ -22,7 +22,6 @@ public class WeaponSlot : System.Object
 		this.gunDefs = GunDefinitions.Get();
 		this.Weapon = startName;
 		this.ammo = 250; this.clipAmmo = 0;
-
 	}
 	#endregion
 	public string Weapon //Name of the current weapon. Changing this value will effectively change the weapon.

@@ -27,7 +27,7 @@ namespace UI{
 		float Width = 1024.0f;
 		float Height = 768.0f;
 		Vector3 Scale;
-		void Awake(){
+		void Start(){
 			instance = this;
 			IsWindowed = Screen.fullScreen;
 			Abilities = new bool[40];
@@ -54,7 +54,7 @@ namespace UI{
 				Application.LoadLevel(1);
 			}
 		}
-		void OptionsButton(){
+		public void OptionsButton(){
 			if(GUI.Button(new Rect(0, 110, 200, 100), "Options")){
 				OptionToggle = !OptionToggle;
 				StatToggle = false;
@@ -171,45 +171,40 @@ namespace UI{
 					if(GUI.Button(new Rect(250, 450, 200, 50), "Reset to Default")){
 						Utils.KeyManager.ResetDefaultKeys();
 					}
-					GUI.Label(new Rect(100, 30, 100, 50), "Forward: " + Utils.KeyManager.GetKeyCode("forward").ToString());
-					GUI.Label(new Rect(100, 60, 100, 50), "Back: " + Utils.KeyManager.GetKeyCode("back").ToString());
-					GUI.Label(new Rect(100, 90, 100, 50), "Left: " + Utils.KeyManager.GetKeyCode("left").ToString());
-					GUI.Label(new Rect(100, 120, 100, 50), "Right: " + Utils.KeyManager.GetKeyCode("right").ToString());
-					GUI.Label(new Rect(100, 150, 100, 50), "Jump: " + Utils.KeyManager.GetKeyCode("jump").ToString());
-					GUI.Label(new Rect(100, 180, 100, 50), "Run: " + Utils.KeyManager.GetKeyCode("run").ToString("g"));
-					GUI.Label(new Rect(100, 210, 100, 50), "Crouch: " + Utils.KeyManager.GetKeyCode("crouch").ToString("G"));
+					GUI.Label(new Rect(100, 30, 100, 50), "Forward: " + Utils.KeyManager.Get("forward").ToString());
+					GUI.Label(new Rect(100, 60, 100, 50), "Back: " + Utils.KeyManager.Get("back").ToString());
+					GUI.Label(new Rect(100, 90, 100, 50), "Left: " + Utils.KeyManager.Get("left").ToString());
+					GUI.Label(new Rect(100, 120, 100, 50), "Right: " + Utils.KeyManager.Get("right").ToString());
+					GUI.Label(new Rect(100, 150, 100, 50), "Jump: " + Utils.KeyManager.Get("jump").ToString());
+					GUI.Label(new Rect(100, 180, 100, 50), "Crouch: " + Utils.KeyManager.Get("crouch").ToString(""));
 					for(int i = 0; i < Utils.KeyManager.keyCodes.Count; i++){
 						KeyToggle[i] = GUI.Toggle(new Rect(180, 30 * (i + 1), 15, 15), KeyToggle[i], "");
 						if(KeyToggle[i]){
 							Event e = Event.current;
 							if(e.isKey){
 								if(KeyToggle[0]){
-									Utils.KeyManager.EditKeyCode("forward", e.keyCode);
+									Utils.KeyManager.Set("forward", e.keyCode);
 									KeyToggle[0] = false;
 								}
 								if(KeyToggle[1]){
-									Utils.KeyManager.EditKeyCode("back", e.keyCode);
+									Utils.KeyManager.Set("back", e.keyCode);
 									KeyToggle[1] = false;
 								}
 								if(KeyToggle[2]){
-									Utils.KeyManager.EditKeyCode("left", e.keyCode);
+									Utils.KeyManager.Set("left", e.keyCode);
 									KeyToggle[2] = false;
 								}
 								if(KeyToggle[3]){
-									Utils.KeyManager.EditKeyCode("right", e.keyCode);
+									Utils.KeyManager.Set("right", e.keyCode);
 									KeyToggle[3] = false;
 								}
 								if(KeyToggle[4]){
-									Utils.KeyManager.EditKeyCode("jump", e.keyCode);
+									Utils.KeyManager.Set("jump", e.keyCode);
 									KeyToggle[4] = false;
 								}
 								if(KeyToggle[5]){
-									Utils.KeyManager.EditKeyCode("run", e.keyCode);
+									Utils.KeyManager.Set("crouch", e.keyCode);
 									KeyToggle[5] = false;
-								}
-								if(KeyToggle[6]){
-									Utils.KeyManager.EditKeyCode("crouch", e.keyCode);
-									KeyToggle[6] = false;
 								}
 							}
 						}
@@ -254,9 +249,6 @@ namespace UI{
 				Utils.KeyManager.Save();
 				Application.Quit();
 			}
-		}
-		void OnApplicationQuit(){
-			Utils.KeyManager.Save();
 		}
 	}
 }

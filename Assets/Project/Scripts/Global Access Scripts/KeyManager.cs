@@ -2,90 +2,48 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using SimpleJSON;
+using Utils.Loaders;
 using System.IO;
-//Created by Nick and Zac
+//Created by Nick and vozochris
 namespace Utils{
 	public class KeyManager{
 		public static Dictionary<string, KeyCode> keyCodes = new Dictionary<string, KeyCode>();
-		static string in_SavePath = Application.persistentDataPath + "/KeyMapping.dat";
-		static string in_LoadPath = Application.persistentDataPath + "/KeyMapping.dat";
+		private static JSONNode data;
 
-		public static void AddKeyCode(string name, KeyCode key) {
-			keyCodes.Add(name, key);
+		public static void Init(){
+			if(File.Exists(Application.persistentDataPath + "/KeyCodes"))
+				data = Load();
+			else
+				data = JSONLoader.Load("KeyCodes");
+			SetFromJSON();
 		}
-		public static KeyCode GetKeyCode(string name) {
+		public static void Save(){
+			JSONNode save = JSONLoader.Load("KeyCodes");
+			foreach(KeyValuePair<string, KeyCode> kvp in keyCodes){
+				save[kvp.Key] = kvp.Value.ToString();
+			}
+			save.SaveToFile(Application.persistentDataPath + "/KeyCodes");
+		}
+		public static JSONNode Load(){
+			return JSONNode.LoadFromFile(Application.persistentDataPath + "/KeyCodes");
+		}
+		public static KeyCode Get(string name) {
 			KeyCode k;
 			keyCodes.TryGetValue(name, out k);
 			return k;
 		}
-		public static void EditKeyCode(string name, KeyCode keyCode) {
+		public static void Set(string name, KeyCode keyCode) {
 			keyCodes[name] = keyCode;
 		}
-		public static void SetDefaultKeys(){
-			AddKeyCode("forward", KeyCode.W);
-			AddKeyCode("back", KeyCode.S);
-			AddKeyCode("left", KeyCode.A);
-			AddKeyCode("right", KeyCode.D);
-			AddKeyCode("jump", KeyCode.Space);
-			AddKeyCode("run", KeyCode.LeftShift);
-			//AddKeyCode("crouch", KeyCode.LeftControl);
-		}
 		public static void ResetDefaultKeys(){
-			File.Delete(in_LoadPath);
-			AddKeyCode("forward", KeyCode.W);
-			AddKeyCode("back", KeyCode.S);
-			AddKeyCode("left", KeyCode.A);
-			AddKeyCode("right", KeyCode.D);
-			AddKeyCode("jump", KeyCode.Space);
-			AddKeyCode("run", KeyCode.LeftShift);
-			//AddKeyCode("crouch", KeyCode.LeftControl);
+			data = JSONLoader.Load("KeyCodes");
+			SetFromJSON();
 		}
-		public static bool Save(){
-			if(keyCodes != null && keyCodes.Count != 0){
-				using(BinaryWriter BW = new BinaryWriter(File.Open(in_SavePath, FileMode.Create))){
-					try{
-						//Write Number of Pairs
-						BW.Write(keyCodes.Count);
-						
-						foreach(KeyValuePair<string, KeyCode> KeyMapping in keyCodes){
-							BW.Write(KeyMapping.Key);
-							BW.Write((Int32)KeyMapping.Value);
-						}
-						//binarywriter could create the file & all values successfully written 
-						return true;
-					}
-					catch(Exception Ex){
-						//Failed to write values? Failed to save.
-						return false;
-					}
-				}
-				//If it jumped to here before completing, then the BinaryWriter failed to create the file.
-				return false;
-			} else {
-				//Not sure if you want to count "No KeyMappings" as a successful save or a failure. I said failure.
-				return false; 
+		private static void SetFromJSON(){
+			foreach(KeyValuePair<string, JSONNode> kvp in data.AsObject){
+				Set(kvp.Key, (KeyCode)Enum.Parse(typeof(KeyCode), kvp.Value.Value));
 			}
-		}
-		
-		public static bool Load(){
-			if(keyCodes == null){
-				keyCodes = new Dictionary<string, KeyCode>();
-			}
-			using(BinaryReader BR = new BinaryReader(File.Open (in_LoadPath, FileMode.Open))){
-				try{
-					int NumberOfPairings = BR.ReadInt32();
-					for(int I = 0; I < NumberOfPairings; I++){
-						keyCodes.Add( BR.ReadString(), (KeyCode)BR.ReadInt32() );
-					}
-					//BinaryReader opened file successfully and loaded all values.
-					return true;
-				}
-				catch(Exception Ex){
-					return false;
-				}
-			}
-			//If it jumped to here before completing, then the BinaryReader failed to open the file.
-			return false;
 		}
 	}
 }

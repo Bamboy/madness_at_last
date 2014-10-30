@@ -14,7 +14,7 @@ public class WeaponAnimation : MonoBehaviour {
 	}
 	public void Update(){
 		if(!reload){
-			if(Input.GetKey(Utils.KeyManager.GetKeyCode("forward"))){
+			if(Input.GetKey(Utils.KeyManager.Get("forward"))){
 				anim.Play("walking");
 			} else {
 				anim.Play("idle");

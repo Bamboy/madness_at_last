@@ -70,6 +70,8 @@ namespace Stats
 		{
 			foreach(BulletInfo bullet in bullets)
 			{
+				if(bullet == null)
+					continue;
 				RaycastHit ray = bullet.data;
 				if (ray.collider == null)
 					continue;

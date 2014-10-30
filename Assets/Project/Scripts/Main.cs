@@ -48,16 +48,13 @@ public class Main : MonoBehaviour
 	{
 		DontDestroyOnLoad(this.gameObject);
 		new LocalStorage();
-		if(File.Exists(Application.persistentDataPath + "/KeyMapping.dat")){
-			Utils.KeyManager.Load();
-		} else {
-			Utils.KeyManager.SetDefaultKeys();
-		}
+		Utils.KeyManager.Init();
 		FindPlayerInScene();
 	}
 
 	void OnApplicationQuit()
 	{
 		LocalStorage.instance.Save();
+		Utils.KeyManager.Save();
 	}
 }
