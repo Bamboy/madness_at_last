@@ -7,21 +7,24 @@ public class PauseMenu : MonoBehaviour {
 	private float fadeSpeed = 1.0f;
 	private int GUISwitch;
 	private bool pause;
+	private bool lastPause;
 	private bool OptionToggle;
 	private bool IsWindowed;
 	private bool DisplayCustom;
 	private bool[] KeyToggle;
 	private string width;
 	private string height;
+	public Texture2D fadeToBlack;
 
 	void Start(){
+		Screen.lockCursor = true;
 		guiTexture.pixelInset = new Rect(0f, 0f, Screen.width, Screen.height);
 		guiTexture.color = Color.clear;
 		width = "";
 		height = "";
 		KeyToggle = new bool[Utils.KeyManager.keyCodes.Count];
 	}
-	void Update(){
+	void LateUpdate(){
 		if(Input.GetKeyDown(KeyCode.Escape)){
 			pause = !pause;
 		}
@@ -30,33 +33,24 @@ public class PauseMenu : MonoBehaviour {
 			transform.root.GetComponentInChildren<MouseLook>().enabled = false;
 			Camera.main.GetComponent<MouseLook>().enabled = false;
 			transform.root.GetComponentInChildren<DrifterInput>().enabled = false;
-			FadeToBlack();
-			StartCoroutine(wait(0.0f));
-		} else {
+			Time.timeScale = 0.0f;
+		} else if(!pause){
 			Screen.lockCursor = true;
 			transform.root.GetComponentInChildren<MouseLook>().enabled = true;
 			Camera.main.GetComponent<MouseLook>().enabled = true;
 			transform.root.GetComponentInChildren<DrifterInput>().enabled = true;
 			Time.timeScale = 1.0f;
-			FadeToNormal();
 			OptionToggle = false;
 		}
+		if(guiTexture.pixelInset.height != Screen.height || guiTexture.pixelInset.width != Screen.width){
+				guiTexture.pixelInset = new Rect(0f, 0f, Screen.width, Screen.height);
+		}
+		lastPause = pause;
 	}
-	#region Fading
-	void FadeToBlack(){
-		guiTexture.color = Color.Lerp(guiTexture.color, Color.black, fadeSpeed * Time.deltaTime);
-	}
-	void FadeToNormal(){
-		guiTexture.color = Color.Lerp(guiTexture.color, Color.clear, fadeSpeed * Time.deltaTime);
-	}
-	IEnumerator wait(float time){
-		yield return new WaitForSeconds(3);
-		Time.timeScale = time;
-	}
-	#endregion
 	#region GUI
 	void OnGUI(){
 		if(pause){
+			GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), fadeToBlack);
 			GUI.Box(new Rect(Screen.width - 50, Screen.height - 300, 100, 600), "");
 			ResumeButton();
 			OptionsButton();

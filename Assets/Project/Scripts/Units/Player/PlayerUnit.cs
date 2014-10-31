@@ -11,6 +11,7 @@ namespace Stats
 		protected Stat movementSpeed;
 
 		private FirstPersonDrifter fpDrifter;
+		public bool isDead;
 
 		protected override void Awake()
 		{
@@ -28,6 +29,7 @@ namespace Stats
 		public override void Die (System.Object source = null)
 		{
 			print("Died from " + source);
+			isDead = true;
 			//TODO - Player death script
 		}
 	}
