@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+//using Weapons;
 
 // By: Cristian "vozochris" Vozoca
 namespace Stats
@@ -13,17 +14,16 @@ namespace Stats
 	{
 		[HideInInspector]
 		public Stat health;
-		public Resistance[] resistances;
 
-		WeaponInventory weaponInventory;
+		private WeaponInventory weaponInventory;
 
-		protected virtual void Awake()
+		protected override void Init(string statsFilePath, params string[] statsJSONPath)
 		{
-			Init();
-
+			base.Init(statsFilePath, statsJSONPath);
 			health = GetStat("health");
-
 			weaponInventory = GetComponent<WeaponInventory>();
+			if (weaponInventory == null)
+				weaponInventory = GetComponentInChildren<WeaponInventory>();
 		}
 
 		/// <summary>
@@ -33,26 +33,17 @@ namespace Stats
 		/// <param name="type">Damage type</param>
 		/// <param name="effects">Damage effects</param>
 		/// <param name="source">Source of damage.</param>
-		public void Damage(float amount, DamageType type = DamageType.Physical, GameObject[] effects = null, System.Object source = null)
+		public void Damage(float amount, DamageType type = DamageType.Physical, string[] effects = null, System.Object source = null)
 		{
-			Resistance resistance = null;
-			foreach(Resistance res in resistances)
-			{
-				if (res.type == type)
-				{
-					resistance = res;
-					break;
-				}
-			}
-			if (resistance != null)
-				health.Current += amount * resistance.value;
+			if (HasStat("resistance" + type))
+				health.Current += amount * (GetStat("resistance" + type).Current + GetStat("resistance").Current);
 			else
 				health.Current += amount;
 
 			if (effects != null)
 			{
-				foreach(GameObject effect in effects)
-					AddEffect(effect);
+				foreach(string effect in effects)
+					AddEffect(effect, "WeaponTypes", "Stats/Effects/DamageTypes");
 			}
 
 			if (health.Current <= 0)
@@ -70,7 +61,7 @@ namespace Stats
 		{
 			foreach(BulletInfo bullet in bullets)
 			{
-				if(bullet == null)
+				if (bullet == null)
 					continue;
 				RaycastHit ray = bullet.data;
 				if (ray.collider == null)
@@ -86,6 +77,7 @@ namespace Stats
 			if (owner == null)
 				return;
 
+			// Get owner Weapon data and damage the unit
 			WeaponInventory weaponInventory = owner.weaponInventory;
 			WeaponSlot weaponSlot = weaponInventory.slots[weaponInventory.activeSlot];
 			string weapon = weaponSlot.Weapon;
@@ -93,8 +85,8 @@ namespace Stats
 			
 			Vector2 damageRange = gunDefs.GetDamageRange(weapon);
 			DamageType damageType = gunDefs.GetDamageType(weapon);
-			GameObject[] damageEffects = gunDefs.GetDamageEffects(weapon);
-
+			string[] damageEffects = gunDefs.GetDamageEffects(weapon);
+			
 			float damage = Random.Range(damageRange.x, damageRange.y) * damageMultiplier;
 			unit.Damage(-damage, damageType, damageEffects, weaponSlot);
 		}

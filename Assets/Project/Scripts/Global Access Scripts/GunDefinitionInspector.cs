@@ -109,7 +109,7 @@ public class GunDefinitions : MonoBehaviour
 		else
 			return guns[id].damageType;
 	}
-	public GameObject[] GetDamageEffects(string id)
+	public string[] GetDamageEffects(string id)
 	{
 		if (!IDisValid(id))
 			return null;

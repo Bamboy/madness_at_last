@@ -1,0 +1,16 @@
+{
+	"WeaponTypes": {
+		"Fire": {
+			"stat": "health",
+			"value": -5,
+			"duration": 2
+		},
+		"Frost": {
+			"stat": "movementSpeed",
+			"value": 0.8,
+			"duration": 10,
+			"multiply": true,
+			"return": true
+		}
+	}
+}

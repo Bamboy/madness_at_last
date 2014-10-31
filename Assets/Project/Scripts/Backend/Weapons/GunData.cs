@@ -36,8 +36,8 @@ public class GunData : System.Object
 	public Vector2 damageRange;
 	[Tooltip("Damage type of the bullet")]
 	public DamageType damageType = DamageType.Physical;
-	[Tooltip("Damage effects, use Prefabs")]
-	public GameObject[] damageEffects;
+	[Tooltip("Damage effects")]
+	public string[] damageEffects;
 	
 	//Bullet prefab
 	[Tooltip("If this isn't null, this object will be created instead of using raycasts.")]
