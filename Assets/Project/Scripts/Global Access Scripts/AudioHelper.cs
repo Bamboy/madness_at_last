@@ -164,15 +164,15 @@ public class AudioHelper : MonoBehaviour
 	//THE INPUT VOLUME NEEDS TO BE SCALED BY "GetVolume()" ON THE OTHER SCRIPT!! 
 	//(Otherwise, if the user changes volume, sounds from this component will not change volume!)
 	#region Create Audio Source
-	public AudioSource CreateAudioSource( Transform obj, AudioClip clip )
+	public static AudioSource CreateAudioSource( Transform obj, AudioClip clip )
 	{
 		return CreateAudioSource( obj, clip, 1.0f );
 	}
-	public AudioSource CreateAudioSource( Transform obj, AudioClip clip, float volume )
+	public static AudioSource CreateAudioSource( Transform obj, AudioClip clip, float volume )
 	{
 		return CreateAudioSource( obj, clip, volume, 1.0f );
 	}
-	public AudioSource CreateAudioSource( Transform obj, AudioClip clip, float volume, float pitch )
+	public static AudioSource CreateAudioSource( Transform obj, AudioClip clip, float volume, float pitch )
 	{
 		AudioSource audio = obj.gameObject.AddComponent<AudioSource>();
 
