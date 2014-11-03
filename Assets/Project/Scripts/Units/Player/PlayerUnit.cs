@@ -13,17 +13,24 @@ namespace Stats
 		private FirstPersonDrifter fpDrifter;
 		public bool isDead;
 
-		protected override void Awake()
+		protected override void Init (string statsFilePath, params string[] statsJSONPath)
 		{
-			instance = this;
-			base.Awake();
-
+			base.Init(statsFilePath, statsJSONPath);
+			
 			movementSpeed = GetStat("movementSpeed");
 
+			// Every time movement speed is changed, change drifter's walk speed
 			fpDrifter = GetComponent<FirstPersonDrifter>();
 			movementSpeed.OnChangeCurrent = delegate(Stat stat) {
 				fpDrifter.walkSpeed = stat.Current;
 			};
+			fpDrifter.walkSpeed = movementSpeed.Current;
+		}
+
+		private void Awake()
+		{
+			instance = this;
+			Init("Units/Player");
 		}
 
 		public override void Die (System.Object source = null)

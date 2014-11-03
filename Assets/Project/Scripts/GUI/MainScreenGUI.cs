@@ -9,6 +9,8 @@ namespace UI{
 	public class MainScreenGUI : MonoBehaviour {
 		[HideInInspector]
 		public static MainScreenGUI instance;
+		public GUISkin skin;
+		public Texture2D mla;
 		bool OptionToggle = false;
 		bool StatToggle = false;
 		bool CreditsToggle = false;
@@ -39,10 +41,12 @@ namespace UI{
 			KeyToggle = new bool[Utils.KeyManager.keyCodes.Count];
 		}
 		void OnGUI(){
+			GUI.skin = skin;
 			Scale.x = Screen.width/Width;
 			Scale.y = Screen.height/Height;
 			Scale.z = 1;
 			GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Scale);
+			GUI.DrawTexture(new Rect(Width - 600, 50, 600, 100), mla);
 			PlayButton();
 			OptionsButton();
 			StatisticsButton();

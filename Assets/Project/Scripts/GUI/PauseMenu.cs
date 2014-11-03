@@ -18,8 +18,6 @@ public class PauseMenu : MonoBehaviour {
 
 	void Start(){
 		Screen.lockCursor = true;
-		guiTexture.pixelInset = new Rect(0f, 0f, Screen.width, Screen.height);
-		guiTexture.color = Color.clear;
 		width = "";
 		height = "";
 		KeyToggle = new bool[Utils.KeyManager.keyCodes.Count];
@@ -42,10 +40,6 @@ public class PauseMenu : MonoBehaviour {
 			Time.timeScale = 1.0f;
 			OptionToggle = false;
 		}
-		if(guiTexture.pixelInset.height != Screen.height || guiTexture.pixelInset.width != Screen.width){
-				guiTexture.pixelInset = new Rect(0f, 0f, Screen.width, Screen.height);
-		}
-		lastPause = pause;
 	}
 	#region GUI
 	void OnGUI(){
