@@ -16,7 +16,7 @@ namespace Excelsion.WeaponSystem
 	public abstract class GunBase : MonoBehaviour 
 	{
 		#region Ammo Variables
-		private int ammo; private int clipAmmo;
+		internal int ammo; internal int clipAmmo;
 		public int Ammo {
 			get{ return ammo; } 
 			set{ ammo = Mathf.Min( value, maxAmmo ); }
@@ -30,6 +30,9 @@ namespace Excelsion.WeaponSystem
 		internal int maxAmmo; //Child script needs to set this!
 		internal int clipSize; //Child script needs to set this!
 		#endregion
+
+		[Range(0.0f, 10.0f)]internal float accuracy = 1.0f;
+		internal Transform origin;
 
 		#region Inputs
 		//Variables with underscores '_' are left over from previous executions.
@@ -56,7 +59,7 @@ namespace Excelsion.WeaponSystem
 
 		#endregion
 
-		void Start()
+		protected virtual void Start()
 		{
 			fireRateTimerDone = true;
 			reloadTimerDone = true;
@@ -65,7 +68,7 @@ namespace Excelsion.WeaponSystem
 
 		//Note that virtual means that the functions CAN be overridden, but it is not required.
 		#region Reloading
-		private float reloadTime = 1.0f;
+		internal float reloadTime = 1.0f;
 		public float ReloadTime {
 			get{ return reloadTime; } set{ reloadTime = Mathf.Abs(value); }
 		}
@@ -74,6 +77,7 @@ namespace Excelsion.WeaponSystem
 		public bool CanReload()
 		{ if( ammo >= 1 && clipAmmo < clipSize ) { return true; } else { return false; } }
 
+		/*
 		//Reloads the gun.
 		public virtual void Reload()
 		{
@@ -81,7 +85,7 @@ namespace Excelsion.WeaponSystem
 			{
 
 			}
-		}
+		} */
 
 		#region Reload Timer
 		internal bool reloadTimerDone = true;
@@ -133,7 +137,7 @@ namespace Excelsion.WeaponSystem
 		#endregion
 
 		#region Firing
-		private float fireRate = 1.0f;
+		internal float fireRate = 1.0f;
 		public float FireRate {
 			get{ return fireRate; } set{ fireRate = Mathf.Abs(value); }
 		}
