@@ -10,25 +10,28 @@ namespace UI{
 		[HideInInspector]
 		public static MainScreenGUI instance;
 		public GUISkin skin;
-		public Texture2D mla;
-		bool OptionToggle = false;
-		bool StatToggle = false;
-		bool CreditsToggle = false;
-		bool AbilitiesToggle = false;
-		bool[] KeyToggle;
-		bool[] Abilities;
-		bool[] CantToggle;
-		bool[] Toggle;
-		bool[] scroll;
-		bool IsWindowed;
-		bool DisplayCustom;
-		string width;
-		string height;
-		Vector2 AbilitiesPosition = Vector2.zero;
-		int GUISwitch = 0;
-		float Width = 1024.0f;
-		float Height = 768.0f;
-		Vector3 Scale;
+		public Texture2D mlaBackground;
+		public Texture2D mlaTitle;
+		public AudioClip mlaAudio;
+		private bool OptionToggle = false;
+		private bool StatToggle = false;
+		private bool CreditsToggle = false;
+		private bool AbilitiesToggle = false;
+		private bool[] KeyToggle;
+		private bool[] Abilities;
+		private bool[] CantToggle;
+		private bool[] Toggle;
+		private bool[] scroll;
+		private bool IsWindowed;
+		private bool DisplayCustom;
+		private string width;
+		private string height;
+		private Vector2 AbilitiesPosition = Vector2.zero;
+		private int GUISwitch = 0;
+		private float Width = 1024.0f;
+		private float Height = 768.0f;
+		private Vector3 Scale;
+
 		void Start(){
 			instance = this;
 			IsWindowed = Screen.fullScreen;
@@ -39,6 +42,14 @@ namespace UI{
 			width = "";
 			height = "";
 			KeyToggle = new bool[Utils.KeyManager.keyCodes.Count];
+			AudioHelper.MasterVolume = 1.0f;
+			AudioHelper.EffectVolume = 1.0f;
+			AudioHelper.MusicVolume = 1.0f;
+			AudioHelper.VoiceVolume = 1.0f;
+			AudioHelper.PlayClipAtPoint(mlaAudio, Vector3.zero, 1.0f, SoundType.Music);
+		}
+		void Update(){
+			AudioHelper.GetVolume(AudioHelper.MusicVolume, SoundType.Music);
 		}
 		void OnGUI(){
 			GUI.skin = skin;
@@ -46,7 +57,8 @@ namespace UI{
 			Scale.y = Screen.height/Height;
 			Scale.z = 1;
 			GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Scale);
-			GUI.DrawTexture(new Rect(Width - 600, 50, 600, 100), mla);
+			GUI.DrawTexture(new Rect(Width - 600, 50, 600, 100), mlaBackground);
+			GUI.DrawTexture(new Rect(Width - 600, 50, 400, 100), mlaTitle);
 			PlayButton();
 			OptionsButton();
 			StatisticsButton();
@@ -54,12 +66,12 @@ namespace UI{
 			ExitButton(); 
 		}
 		void PlayButton(){
-			if(GUI.Button(new Rect(0, 0, 200, 100), "Play")){
+			if(GUI.Button(new Rect(Width - 315, 150, 200, 100), "Play")){
 				Application.LoadLevel(1);
 			}
 		}
 		public void OptionsButton(){
-			if(GUI.Button(new Rect(0, 110, 200, 100), "Options")){
+			if(GUI.Button(new Rect(Width - 315, 250, 200, 100), "Options")){
 				OptionToggle = !OptionToggle;
 				StatToggle = false;
 				CreditsToggle = false;
@@ -219,7 +231,7 @@ namespace UI{
 			}
 		}
 		void StatisticsButton(){
-			if(GUI.Button(new Rect(0, 220, 200, 100), "Statistics")){
+			if(GUI.Button(new Rect(Width - 315, 350, 200, 100), "Statistics")){
 				StatToggle = !StatToggle;
 				OptionToggle = false;
 				CreditsToggle = false;
@@ -237,7 +249,7 @@ namespace UI{
 			}
 		}
 		void CreditsButton(){
-			if(GUI.Button(new Rect(0, 330, 200, 100), "Credits")){
+			if(GUI.Button(new Rect(Width - 315, 450, 200, 100), "Credits")){
 				CreditsToggle = !CreditsToggle;
 				OptionToggle = false;
 				StatToggle = false;
@@ -248,7 +260,7 @@ namespace UI{
 			}
 		}
 		void ExitButton(){
-			if(GUI.Button(new Rect(0, 440, 200, 100), "Quit")){
+			if(GUI.Button(new Rect(Width - 315, 550, 200, 100), "Quit")){
 				LocalStorage.instance.Save();
 				Utils.KeyManager.Save();
 				Application.Quit();
