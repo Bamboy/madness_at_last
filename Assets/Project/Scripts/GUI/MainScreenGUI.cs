@@ -6,33 +6,17 @@ using Stats;
 
 // By Nick E.
 namespace UI{
-	public class MainScreenGUI : MonoBehaviour {
+	public class MainScreenGUI : GUIFunctions {
 		[HideInInspector]
 		public static MainScreenGUI instance;
 		public GUISkin skin;
 		public Texture2D mlaBackground;
 		public Texture2D mlaTitle;
 		public AudioClip mlaAudio;
-		private bool OptionToggle = false;
-		private bool StatToggle = false;
-		private bool CreditsToggle = false;
-		private bool AbilitiesToggle = false;
-		private bool[] KeyToggle;
-		private bool[] Abilities;
-		private bool[] CantToggle;
-		private bool[] Toggle;
-		private bool[] scroll;
-		private bool IsWindowed;
-		private bool DisplayCustom;
-		private string width;
-		private string height;
-		private Vector2 AbilitiesPosition = Vector2.zero;
-		private int GUISwitch = 0;
-		private float Width = 1024.0f;
-		private float Height = 768.0f;
-		private Vector3 Scale;
+		public ParticleSystem particle;
 
 		void Start(){
+			Instantiate(particle);
 			instance = this;
 			IsWindowed = Screen.fullScreen;
 			Abilities = new bool[40];
@@ -95,6 +79,11 @@ namespace UI{
 				case 2://video
 					IsWindowed = GUI.Toggle(new Rect(230, 30, 80, 20), IsWindowed, "Windowed");
 					GUI.Label(new Rect(100, 30, 100, 30), "Resolution");
+					/*string[] resolutions = new string[,] {"800x600", "1024x768", "1152x648", "1280x720"};
+					for(int i = 0; i < resolutions.Length; i++){
+
+						ResolutionButton(100, 50 + (i*20), )
+					}*/
 					if(GUI.Button(new Rect(100, 50, 100, 20), "800x600")){
 						Screen.SetResolution(800, 600, IsWindowed);
 					}
@@ -265,6 +254,10 @@ namespace UI{
 				Utils.KeyManager.Save();
 				Application.Quit();
 			}
+		}
+		void OnLevelWasLoaded(){
+			particle.Play();
+			Time.timeScale = 1.0f;
 		}
 	}
 }

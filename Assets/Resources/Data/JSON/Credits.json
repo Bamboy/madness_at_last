@@ -1,8 +1,19 @@
 {
-	"forward" : "W",
-	"back" : "S",
-	"left" : "A",
-	"right" : "D",
-	"jump" : "Space",
-	"crouch" : "LeftControl"
+	"Imran Sadiq": ["Writer", "CEO"],
+	"Justin Bruystens": ["Writer", "Project Manager"],
+	"Dann Flesher": "Business & Advertising",
+	"Stephan Ennen": "Programmer",
+	"Cristian Vozoca": "Programmer",
+	"Anthon Fredriksson": "Programmer",
+	"Nicholas Evans": "Programmer",
+	"Calvin Moss": "Programmer",
+	"Stephen Stanley": "Artist",
+	"Nick Bierenbroodspot": "Artist",
+	"Łukasz Dyńda": "Artist",
+	"Bjørn Hensvold": "Artist",
+	"Sagan Tucker": "Artist",
+	"Iain Matthiae": "Artist",
+	"Dylan Sherrick": "Artist",
+	"Tristan Gray": "Sound Design",
+	"Zak Rivers": "Sound Design"
 }
