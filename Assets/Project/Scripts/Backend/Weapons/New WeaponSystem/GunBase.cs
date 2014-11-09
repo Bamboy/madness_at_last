@@ -1,38 +1,49 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
 ///////////////////////////////////
 /// By: Stephan "Bamboy" Ennen ////
-/// Last Updated: 11/04/14     ////
+/// Last Updated: 11/09/14     ////
 ///////////////////////////////////
 
 //Messages sent:
 //OnReloadStart( float time );
 //OnReloadFinished();
+
+
 namespace Excelsion.WeaponSystem
 {
 	//Abstract means that this class can only be built upon by other scripts. It cannot be used 'as is'.
 	public abstract class GunBase : MonoBehaviour 
 	{
-		#region Ammo Variables
-		internal int ammo; internal int clipAmmo;
-		public int Ammo {
-			get{ return ammo; } 
-			set{ ammo = Mathf.Min( value, maxAmmo ); }
-		}
-		public int ClipAmmo {
-			get{ return clipAmmo; } 
-			set{ clipAmmo = Mathf.Min( value, clipSize ); }
-		}
-
+		#region Variables
 		//Internal means that the variable is only accessible by scripts in the same namespace or by children of the script.
-		internal int maxAmmo; //Child script needs to set this!
-		internal int clipSize; //Child script needs to set this!
-		#endregion
+		internal Transform origin;
+
+		internal int ammo; 
+		internal int clipAmmo;
+		internal int maxAmmo = 30; //Child script needs to set this!
+		internal int clipSize = 3; //Child script needs to set this!
 
 		[Range(0.0f, 10.0f)]internal float accuracy = 1.0f;
-		internal Transform origin;
+		internal float reloadTime = 1.0f;
+		internal float fireRate = 1.0f;
+
+		#endregion
+
+		#region Accessors
+		public Transform Origin{ get{ return origin; } set{ origin = value; }}
+		public int Ammo{ get{ return ammo; }           set{ ammo = Mathf.Min( value, maxAmmo ); }}
+		public int ClipAmmo{ get{ return clipAmmo; }   set{ clipAmmo = Mathf.Min( value, clipSize ); }}
+		public int MaxAmmo{ get{ return maxAmmo; }     set{ maxAmmo = Mathf.Abs( value ); }}
+		public int ClipSize{ get{ return clipSize; }   set{ clipSize = Mathf.Abs( value ); }}
+		public float Accuracy{ get{ return accuracy; } set{ accuracy = Mathf.Clamp( value, 0.0f, 10.0f ); }}
+		public float ReloadTime { get{ return reloadTime; } set{ reloadTime = Mathf.Abs(value); }}
+		public float FireRate{ get{ return fireRate; } set{ fireRate = Mathf.Abs(value); }}
+		#endregion
+
+
+
 
 		#region Inputs
 		//Variables with underscores '_' are left over from previous executions.
@@ -59,6 +70,16 @@ namespace Excelsion.WeaponSystem
 
 		#endregion
 
+		#region Checks
+		public bool CanFire()
+		{ if( fireRateTimerDone && reloadTimerDone && clipAmmo > 0 ){ return true; } else { return false; } }
+
+		//Do we have at least one bullet in reserve, and are we missing at least one bullet from our clip?
+		public bool CanReload()
+		{ if( ammo >= 1 && clipAmmo < clipSize ) { return true; } else { return false; } }
+		#endregion
+
+
 		protected virtual void Start()
 		{
 			fireRateTimerDone = true;
@@ -67,15 +88,6 @@ namespace Excelsion.WeaponSystem
 
 
 		//Note that virtual means that the functions CAN be overridden, but it is not required.
-		#region Reloading
-		internal float reloadTime = 1.0f;
-		public float ReloadTime {
-			get{ return reloadTime; } set{ reloadTime = Mathf.Abs(value); }
-		}
-
-		//Do we have at least one bullet in reserve, and are we missing at least one bullet from our clip?
-		public bool CanReload()
-		{ if( ammo >= 1 && clipAmmo < clipSize ) { return true; } else { return false; } }
 
 		/*
 		//Reloads the gun.
@@ -134,27 +146,16 @@ namespace Excelsion.WeaponSystem
 			return false;
 		}
 		#endregion
-		#endregion
+
 
 		#region Firing
-		internal float fireRate = 1.0f;
-		public float FireRate {
-			get{ return fireRate; } set{ fireRate = Mathf.Abs(value); }
-		}
-
-		public bool CanFire()
-		{ if( fireRateTimerDone && reloadTimerDone && clipAmmo > 0 ){ return true; } else { return false; } }
-
-		#region Fire
 		//Fires the gun. BE SURE TO CALL base.Fire()!!
 		public virtual void Fire()
 		{
 			TimerStart_fireRate();
 			clipAmmo -= 1;
 		}
-		#endregion
 
-		#region Fire Rate Timer
 		internal bool fireRateTimerDone = true;
 		protected virtual void TimerStart_fireRate()
 		{ 
@@ -162,7 +163,7 @@ namespace Excelsion.WeaponSystem
 			Invoke( "Timer_fireRate", FireRate );
 		}
 		protected virtual void Timer_fireRate() { fireRateTimerDone = true; }
-		#endregion
+
 		#endregion
 
 

@@ -3,7 +3,7 @@ using System.Collections;
 
 ///////////////////////////////////
 /// By: Stephan "Bamboy" Ennen ////
-/// Last Updated: 11/04/14     ////
+/// Last Updated: 11/09/14     ////
 ///////////////////////////////////
 
 //Messages sent:
@@ -14,9 +14,17 @@ namespace Excelsion.WeaponSystem
 	//Inherit from this class if you want your gun to use raycasts instead of firing prefabs.
 	public abstract class GunRay : GunBase
 	{
+		#region Variables
 		internal int bulletsPerShot = 1;
 		internal float distance = 999999.999999f;
 		internal LayerMask objectsToHit;
+		#endregion
+		#region Accessors
+		public int BulletsPerShot{ get{ return bulletsPerShot; } set{bulletsPerShot = Mathf.Abs( value );} }
+		public float MaxDistance{ get{ return distance; } set{distance = Mathf.Abs( value );} }
+		public LayerMask Filter{ get{ return objectsToHit; } set{ objectsToHit = value; } }
+		#endregion
+
 
 		protected override void Start () 
 		{

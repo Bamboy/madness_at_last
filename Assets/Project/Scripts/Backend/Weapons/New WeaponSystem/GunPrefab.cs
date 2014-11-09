@@ -6,6 +6,9 @@ using System.Collections;
 /// Last Updated: 11/04/14     ////
 ///////////////////////////////////
 
+//Messages sent:
+//OnGunPrefabFired();
+
 namespace Excelsion.WeaponSystem
 {
 	//Inherit from this class if you want your gun to fire prefabs instead of using raycasts.
