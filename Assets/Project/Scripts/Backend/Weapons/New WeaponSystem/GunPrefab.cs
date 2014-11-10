@@ -21,6 +21,8 @@ namespace Excelsion.WeaponSystem
 			base.Start();
 		}
 
+		public override void UpdateSettings(){}
+
 
 		public override void Fire()
 		{
