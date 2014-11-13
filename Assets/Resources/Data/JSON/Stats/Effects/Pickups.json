@@ -1,0 +1,18 @@
+{
+	"Drugs": {
+		"Cocaine": {
+			"stat": "movementSpeed",
+			"value": 1.4,
+			"duration": 10,
+			"multiply": true,
+			"return": true
+		},
+		"Heroin": {
+			"stat": "health",
+			"value": 0.5,
+			"duration": 10,
+			"multiply": true,
+			"return": true
+		}
+	}
+}
