@@ -2,8 +2,10 @@
 	"WeaponTypes": {
 		"Fire": {
 			"stat": "health",
-			"value": -5,
-			"duration": 2
+			"damageType": "Fire",
+			"value": -2,
+			"duration": 10,
+			"tick": 2
 		},
 		"Frost": {
 			"stat": "movementSpeed",
