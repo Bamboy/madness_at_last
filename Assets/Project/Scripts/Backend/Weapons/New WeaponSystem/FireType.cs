@@ -18,7 +18,7 @@ namespace Excelsion.WeaponSystem
 
 		public static bool Automatic( bool thisInput, bool lastInput )
 		{
-			return true;
+			return thisInput;
 		}
 
 	}
