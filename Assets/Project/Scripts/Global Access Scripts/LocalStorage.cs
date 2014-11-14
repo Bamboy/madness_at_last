@@ -61,5 +61,9 @@ public class LocalStorage
 	{
 		currentStats.kills += savedStats.kills;
 		currentStats.seconds += savedStats.seconds;
+		currentStats.effectVolume += savedStats.effectVolume;
+		currentStats.voiceVolume += savedStats.voiceVolume;
+		currentStats.musicVolume += savedStats.musicVolume;
+		currentStats.masterVolume += savedStats.masterVolume;
 	}
 }

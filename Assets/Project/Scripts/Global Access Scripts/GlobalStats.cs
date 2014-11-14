@@ -8,4 +8,8 @@ public class GlobalStats
 
 	public int seconds = 0;
 	public int kills = 0;
+	public float masterVolume;
+	public float musicVolume;
+	public float voiceVolume;
+	public float effectVolume;
 }

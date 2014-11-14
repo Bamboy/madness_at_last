@@ -39,13 +39,13 @@ public class AudioHelper : MonoBehaviour
 	}
 	#endregion
 	#region Volume Accessors
-	private static float masterVolume  = 1.00f;
+	private static float masterVolume;
 
-	private static float musicVolume   = 0.80f;
+	private static float musicVolume;
 	private static float r_musicVolume; // r_ = volume relative to master volume
-	private static float effectVolume  = 0.85f;
+	private static float effectVolume;
 	private static float r_effectVolume;
-	private static float voiceVolume   = 1.00f;
+	private static float voiceVolume;
 	private static float r_voiceVolume;
 	public static float MasterVolume
 	{

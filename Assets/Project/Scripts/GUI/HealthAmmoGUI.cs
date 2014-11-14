@@ -11,10 +11,13 @@ public class HealthAmmoGUI: MonoBehaviour {
 	[Range(0.0f, 1.0f)] public float crosshairSize;
 	public Vector2 minMaxSize; //X is min, Y is max. Both measured in pixels
 	private float _lastAccuracy = 0.0f;
+	private float ammoSeconds;
+	private float snapTime;
+	private bool isInCombat;
 	//public GUISkin AmmoSkin;
 	//public GUISkin HealthSkin;
 	void Start(){
-		wi = GameObject.Find("Inventory").GetComponent<WeaponInventory>(); //TODO - Remove the find!
+		wi = transform.root.GetComponentInChildren<WeaponInventory>(); //TODO - Remove the find!
 		pu = PlayerUnit.instance;
 
 		wepDic = GunDefinitions.Get();
@@ -32,6 +35,12 @@ public class HealthAmmoGUI: MonoBehaviour {
 				crosshairSize = accuracy / 10.0f;
 		}
 		_lastAccuracy = accuracy;
+
+		if(Input.GetMouseButtonDown(0)){
+			ammoSeconds = 30.0f;
+			snapTime = Time.time;
+			isInCombat = true;
+		}
 	}
 	void OnGUI(){
 		DrawAmmo();
@@ -57,15 +66,12 @@ public class HealthAmmoGUI: MonoBehaviour {
 	}
 	void DrawAmmo(){
 		//GUI.skin = AmmoSkin;
-		GUI.BeginGroup(new Rect(Screen.width - 150f, Screen.height - 150f, 150, 150), "");
-			GUI.Box(new Rect(0, 0, 150, 150), "");
-			GUI.Label(new Rect(5, 115, 100, 75), wi.slots[wi.activeSlot].Weapon);
-			GUI.Label(new Rect(5, 130, 50, 25), "Ammo:");
-			GUI.Label(new Rect(55, 130, 70, 25), wi.GetClipAmmoFor(wi.slots[wi.activeSlot].Weapon).ToString("n0"));
-			GUI.Label(new Rect(65, 130, 70, 25), "Clip:");
-			GUI.Label(new Rect(95, 130, 70, 25), wi.GetAmmoFor(wi.slots[wi.activeSlot].Weapon).ToString("n0"));
+		GUI.BeginGroup(new Rect(Screen.width - 150f, Screen.height - 50f, 150, 50), "");
+		if(isInCombat){
+			if(Time.time - snapTime >= ammoSeconds){
+				GUI.Box(new Rect(0, 0, 150, 50), "");
+			}
+		}
 		GUI.EndGroup();
 	}
-
-
 }
