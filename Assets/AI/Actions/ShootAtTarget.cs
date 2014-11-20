@@ -17,6 +17,8 @@ public class ShootAtTarget : RAINAction
 
     public override ActionResult Execute(AI ai)
     {
+		//This code would cause errors due to removed scripts. Kept here for future reference.
+		/*
 		GunShooting gunShoot = ai.Body.gameObject.GetComponentInChildren<GunShooting>();
 
 		GameObject obj = ai.WorkingMemory.GetItem<GameObject>("chaseTarget");
@@ -26,7 +28,7 @@ public class ShootAtTarget : RAINAction
 			return ActionResult.FAILURE;
 		}
 		
-		gunShoot.FireWeapon = VectorExtras.SplitChance ();
+		gunShoot.FireWeapon = VectorExtras.SplitChance ();  */
 
 
 		return ActionResult.RUNNING;

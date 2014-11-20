@@ -16,7 +16,7 @@ public class FirstPersonDrifter: MonoBehaviour
     private bool limitDiagonalSpeed = true;
  
     public bool enableRunning = false;
- 
+  
     public float jumpSpeed = 4.0f;
     public float gravity = 10.0f;
  
