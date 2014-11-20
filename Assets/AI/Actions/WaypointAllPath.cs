@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using RAIN.Action;
 using RAIN.Core;
 
 [RAINDecision]
-public class DecisionTemplate_CS : RAINDecision
+public class WaypointAllPath : RAINDecision
 {
     private int _lastRunning = 0;
 

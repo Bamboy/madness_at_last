@@ -23,6 +23,7 @@ namespace UI{
 		private GUIStyle labelStyle;
 		private float scrollTime = 0.0f;
 		private static JSONNode creditData;
+		private AudioSource music;
 		
 		void Start(){
 			Instantiate(particle);
@@ -32,11 +33,7 @@ namespace UI{
 			height = "";
 			KeyToggle = new bool[Utils.KeyManager.keyCodes.Count];
 			creditData = JSONLoader.Load("Credits");
-			AudioHelper.MasterVolume = 1.0f;
-			AudioHelper.EffectVolume = 1.0f;
-			AudioHelper.MusicVolume = 1.0f;
-			AudioHelper.VoiceVolume = 1.0f;
-			AudioHelper.PlayClipAtPoint(mlaAudio, Vector3.zero, 1.0f, SoundType.Music);
+			music = AudioHelper.CreateAudioSource(this.transform, mlaAudio, 1.0f);
 		}
 		void Update(){
 			if(CreditsToggle){
@@ -44,7 +41,7 @@ namespace UI{
 			} else {
 				scrollTime = 0.0f;
 			}
-			AudioHelper.GetVolume(AudioHelper.MusicVolume, SoundType.Music);
+			music.volume = AudioHelper.GetVolume(1.0f, SoundType.Music);
 		}
 		void OnGUI(){
 			GUI.skin = skin;

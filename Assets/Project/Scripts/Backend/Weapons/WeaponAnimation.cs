@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Excelsion.WeaponSystem;
 
 public class WeaponAnimation : MonoBehaviour {
 	private GunDefinitions gunDef;
@@ -9,8 +10,6 @@ public class WeaponAnimation : MonoBehaviour {
 
 	private void Awake(){
 		anim = GetComponent<Animator>();
-		gunDef = GunDefinitions.Get();
-		weapInv = transform.root.GetComponentInChildren<WeaponInventory>();
 	}
 	public void Update(){
 		if(!reload){
@@ -21,7 +20,13 @@ public class WeaponAnimation : MonoBehaviour {
 			}
 		}
 	}
-	public void OnShotFired(){
+	public void OnGunPrefabFired(){
+		playFire();
+	}
+	public void OnGunRaycastFired(){
+		playFire();
+	}
+	public void playFire(){
 		if(!reload){
 			anim.Play("idle_oneshot");
 		}
