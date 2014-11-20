@@ -83,7 +83,8 @@ public class AIFactory : MonoBehaviour
 	{
 		AIPrefabs = ArrayTools.Shuffle<GameObject>( AIPrefabs );
 
-		GameObject newAI = (GameObject)Instantiate( AIPrefabs[0], pos, Quaternion.identity );
+		/*GameObject newAI = (GameObject)*/
+		Instantiate( AIPrefabs[0], pos, Quaternion.identity );
 		aiCount++;
 		Debug.Log( "AI spawned!", this );
 	}

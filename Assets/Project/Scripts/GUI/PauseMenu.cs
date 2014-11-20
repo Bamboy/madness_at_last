@@ -4,7 +4,7 @@ using System.Collections;
 //By Nick Evans
 
 public class PauseMenu : MonoBehaviour {
-	private float fadeSpeed = 1.0f;
+	//private float fadeSpeed = 1.0f;
 	private int GUISwitch;
 	private bool pause;
 	private bool lastPause;

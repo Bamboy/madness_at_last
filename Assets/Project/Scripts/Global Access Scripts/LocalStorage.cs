@@ -33,6 +33,7 @@ public class LocalStorage
 		}
 		catch(Exception e)
 		{
+			Debug.LogWarning( e.Message +" - Deleting the file..." );
 			File.Delete(path);
 		}
 	}
@@ -50,6 +51,7 @@ public class LocalStorage
 			}
 			catch(Exception e)
 			{
+				Debug.LogWarning( e.Message +" - Creating new save..." );
 				GlobalStats.saved = savedStats = new GlobalStats();
 			}
 		}

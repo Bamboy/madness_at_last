@@ -3,7 +3,7 @@ using System.Collections;
 
 ///////////////////////////////////
 /// By: Stephan "Bamboy" Ennen ////
-/// Last Updated: 10/15/14     ////
+/// Last Updated: 11/20/14     ////
 ///////////////////////////////////
 
 //This script just holds general functions we might want to use in our other scripts.
@@ -39,6 +39,13 @@ public class VectorExtras : System.Object
 	public static bool SplitChance()
 	{
 		return Random.Range(0, 2) == 0 ? true : false;
+	}
+
+	//A helper function for getting the speed multiplier needed to make 'defaultLength' equal 'duration'.
+	//Mainly intended for animations as you can only change the playback speed by using multiplers and not the time in seconds.
+	public static float GetDurationMultiplier( float defaultLength, float duration )
+	{
+		return defaultLength / duration;
 	}
 
 	//Rounds 'val' to the nearest step of 'snapValue'. Example: RoundTo( 1.2, 0.25 ) would return 1.25.
