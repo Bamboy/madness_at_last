@@ -42,7 +42,7 @@ public class RPGRocket : MonoBehaviour
 	{
 		if( collision.relativeVelocity.magnitude > forceRequired )
 		{
-			Debug.Log( collision.relativeVelocity );
+			//Debug.Log( collision.relativeVelocity );
 			Explode ();
 		}
 	}

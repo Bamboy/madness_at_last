@@ -67,7 +67,8 @@ namespace Excelsion.WeaponSystem.Weapons
 		}
 		public override void UpdateEffectSettings()
 		{
-			muzzleFlashEffect = muzzleFlashEffect;
+			base.UpdateEffectSettings();
+			MuzzleEffectPrefab = muzzleFlashEffect;
 			ShotFiredAudio = shotFiredAudio;
 		}
 

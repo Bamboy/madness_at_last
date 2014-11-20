@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Edelweiss.DecalSystem;
+using Excelsion.WeaponSystem;
 
 //Created by: Nick Evans
 
@@ -87,7 +88,7 @@ public class BulletDecals : MonoBehaviour
 		forwardDir = lineVec;
 	}
 
-	public void OnShotFired( BulletInfo[] bullets )
+	public void OnGunRaycastFired( BulletInfo[] bullets )
 	{
 		for(int i = 0; i < bullets.Length; i++){
 				Ray l_Ray = bullets[i].ray;

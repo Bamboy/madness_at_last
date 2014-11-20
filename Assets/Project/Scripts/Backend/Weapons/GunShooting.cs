@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using Excelsion.WeaponSystem;
 
 ///////////////////////////////////
 /// By: Stephan "Bamboy" Ennen ////

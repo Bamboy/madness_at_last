@@ -16,6 +16,7 @@ namespace Excelsion.WeaponSystem
 		public bool[] hasWeapon; //1 means we have the weapon in the slot, 0 means we don't.
 		public int activeWeapon = 0;
 		private int weaponCount;
+		private int MAX_LOOP_COUNT = 10; 
 
 		#region Accessors
 		public int ActiveWeapon {
@@ -35,7 +36,20 @@ namespace Excelsion.WeaponSystem
 		}
 		#endregion
 
-		private void HideGuns() //This is called when the 'activeWeapon' variable changes.
+		//Returns the slot that the weapon is in. If we do not have access to the weapon, returns -1.
+		public int GetWeapon( System.Type weapon )
+		{
+			for( int i = 0; i < guns.Length; i++ )
+			{
+				if(Object.ReferenceEquals( weapon, guns[i].GetType() )) //Returns true if the class types are the same.
+				{
+					return i;
+				}
+			}
+			return -1;
+		}
+
+		private void HideGuns() //This is called when the 'ActiveWeapon' variable changes.
 		{
 			for( int i = 0; i < guns.Length; i++ )
 			{
@@ -70,6 +84,7 @@ namespace Excelsion.WeaponSystem
 				activeWeapon = -1;
 			}
 			CountWeapons();
+			HideGuns();
 			#endregion
 		}
 		int CountWeapons()
@@ -77,35 +92,31 @@ namespace Excelsion.WeaponSystem
 			weaponCount = 0;
 			for( int i = 0; i < guns.Length; i++ )
 			{ 
-				if( hasWeapon[i] == false )
+				if( hasWeapon[i] == false || (guns[i].Ammo <= 0 && guns[i].ClipAmmo <= 0) )
 				{
-					Debug.Log ("We dont have this weapon");
 					continue; //Continue stops this current loop cycle and goes to the next one.
 				}
-				else if( guns[i].Ammo > 0 || guns[i].ClipAmmo > 0 ) 
-				{
-					Debug.Log ("We do not have ammo for this weapon");
-					continue;
-				}
-				else
-				{
-					Debug.Log ("We do have this weapon");
-					weaponCount++;
-				}
+
+				//Debug.Log ("We do have this weapon");
+				weaponCount++;
 			}
 			Debug.Log( weaponCount );
 			return weaponCount;
 		}
 
 		#region Inputs
-		public bool InputFire   {set{ guns[activeWeapon].InputFire = value; }}
-		public bool InputReload {set{ guns[activeWeapon].InputReload = value; }}
+		public bool InputFire   {set{
+				if( activeWeapon > -1 ) {guns[activeWeapon].InputFire = value;} 
+		}}
+		public bool InputReload {set{ 
+				if( activeWeapon > -1 ) {guns[activeWeapon].InputReload = value;} 
+		}}
 
 		#region Weapon Selection
 		public void NextWeapon()
 		{
-			if( weaponCount > 1 ) //Only enable switching if we have 2 or more weapons.
-			{
+			//if( weaponCount > 1 ) //Only enable switching if we have 2 or more weapons.
+			//{
 				int newWep = ActiveWeapon;
 				newWep++;
 				if( newWep == guns.Length ) 
@@ -119,7 +130,7 @@ namespace Excelsion.WeaponSystem
 						newWep = 0; //We would get an Index Out Of Range error if we didn't change it!
 
 					breakCounter++;
-					if( breakCounter > 100 )
+					if( breakCounter > MAX_LOOP_COUNT )
 					{
 						Debug.LogWarning("Infinite loop detected!", this);
 						break;
@@ -127,34 +138,31 @@ namespace Excelsion.WeaponSystem
 
 				}
 				ActiveWeapon = newWep; //Finalize our weapon switch.
-			}
+			//}
 		}
 		public void PreviousWeapon()
 		{
-			if( weaponCount > 1 ) //Only enable switching if we have 2 or more weapons.
+			int newWep = ActiveWeapon;
+			newWep--;
+			if( newWep == -1 ) 
+				newWep = guns.Length - 1; //We would get an Index Out Of Range error if we didn't change it!
+			
+			int breakCounter = 0;
+			while((guns[newWep].Ammo <= 0 && guns[newWep].ClipAmmo <= 0) || hasWeapon[newWep] == false ) //Don't stop on a weapon unless we have it!
 			{
-				int newWep = ActiveWeapon;
 				newWep--;
 				if( newWep == -1 ) 
 					newWep = guns.Length - 1; //We would get an Index Out Of Range error if we didn't change it!
 				
-				int breakCounter = 0;
-				while((guns[newWep].Ammo <= 0 && guns[newWep].ClipAmmo <= 0) || hasWeapon[newWep] == false ) //Don't stop on a weapon unless we have it!
+				breakCounter++;
+				if( breakCounter > MAX_LOOP_COUNT )
 				{
-					newWep--;
-					if( newWep == -1 ) 
-						newWep = guns.Length - 1; //We would get an Index Out Of Range error if we didn't change it!
-					
-					breakCounter++;
-					if( breakCounter > 100 )
-					{
-						Debug.LogWarning("Infinite loop detected!", this);
-						break;
-					}
-					
+					Debug.LogWarning("Infinite loop detected!", this);
+					break;
 				}
-				ActiveWeapon = newWep; //Finalize our weapon switch.
+				
 			}
+			ActiveWeapon = newWep; //Finalize our weapon switch.
 		}
 		#endregion
 
@@ -166,7 +174,38 @@ namespace Excelsion.WeaponSystem
 
 
 
-		//void 
+		void LateUpdate()
+		{
+			if( ActiveWeapon > -1 )
+			{
+				if( guns[ ActiveWeapon ].Ammo <= 0 && guns[ ActiveWeapon ].ClipAmmo <= 0 )
+				{
+					hasWeapon[ActiveWeapon] = false;
+
+					if( weaponCount > 1 )
+						NextWeapon();
+					else
+						ActiveWeapon = -1;
+				}
+
+				CountWeapons();
+				
+				if( weaponCount == 0 )
+				{
+					ActiveWeapon = -1;
+				}
+			}
+			else
+			{
+
+				if( CountWeapons() > 0 )
+				{
+					NextWeapon();
+				}
+			}
+
+
+		}
 
 
 	}

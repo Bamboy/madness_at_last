@@ -14,7 +14,7 @@ public class GunEffects : MonoBehaviour
 {
 	public AudioClip shotFiredAudio;
 	public GameObject muzzleEffect;
-
+ 
 	public GameObject[] weapons;
 
 

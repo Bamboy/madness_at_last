@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Stats;
+using Excelsion.WeaponSystem;
 
-public class HealthAmmoGUI: MonoBehaviour {
-	private WeaponInventory wi;
+public class HealthAmmoGUI : MonoBehaviour {
+	private GunInventory wi;
 	private PlayerUnit pu;
-	private GunDefinitions wepDic;
 
 	public Texture2D crosshair;
 	[Range(0.0f, 1.0f)] public float crosshairSize;
@@ -16,16 +16,15 @@ public class HealthAmmoGUI: MonoBehaviour {
 	private bool isInCombat;
 	//public GUISkin AmmoSkin;
 	//public GUISkin HealthSkin;
-	void Start(){
-		wi = transform.root.GetComponentInChildren<WeaponInventory>(); //TODO - Remove the find!
-		pu = PlayerUnit.instance;
 
-		wepDic = GunDefinitions.Get();
+	void Start(){
+		wi = transform.root.GetComponentInChildren<GunInventory>(); //TODO - Remove the find!
+		pu = PlayerUnit.instance;
 	}
 	void Update()
 	{
 		//See if our weapon's accuracy has changed.
-		float accuracy = wepDic.GetAccuracy( wi.slots[wi.activeSlot].Weapon );
+		float accuracy = wi.ActiveWeapon > -1 ? wi.guns[wi.ActiveWeapon].Accuracy : 0.0f;
 		if( accuracy != _lastAccuracy )
 		{
 			//Recalculate our crosshair size.
