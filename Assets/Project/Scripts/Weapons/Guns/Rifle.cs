@@ -19,6 +19,7 @@ namespace Excelsion.WeaponSystem.Weapons
 		public AudioClip shotFiredAudio;
 		public Transform origin;
 
+		public bool infiniteAmmo = false;
 		public int maxAmmo = 60;
 		public int clipSize = 8;
 		[Range(0.0f, 10.0f)]public float accuracy = 1.0f;
@@ -51,7 +52,8 @@ namespace Excelsion.WeaponSystem.Weapons
 		public override void UpdateSettings()
 		{
 			base.UpdateSettings();
-			
+
+			InfiniteAmmo = this.infiniteAmmo;
 			Origin = this.origin;
 			MaxAmmo = this.maxAmmo;
 			ClipSize = this.clipSize;

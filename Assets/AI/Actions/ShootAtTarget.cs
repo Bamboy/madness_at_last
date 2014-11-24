@@ -3,32 +3,38 @@ using System.Collections;
 using System.Collections.Generic;
 using RAIN.Core;
 using RAIN.Action;
+using Excelsion.WeaponSystem;
 
 [RAINAction]
 public class ShootAtTarget : RAINAction
 {
 	//GunShooting gunShoot;
-
 	public override void Start(AI ai)
     {
         base.Start(ai);
-
     }
 
     public override ActionResult Execute(AI ai)
     {
-		//This code would cause errors due to removed scripts. Kept here for future reference.
-		/*
-		GunShooting gunShoot = ai.Body.gameObject.GetComponentInChildren<GunShooting>();
+		ThugAI thug = (ThugAI)ai.Body.gameObject.GetComponentInChildren< ThugAI >();
 
-		GameObject obj = ai.WorkingMemory.GetItem<GameObject>("chaseTarget");
-		if( obj == null || gunShoot == null )
+		GunInventory gunInv = thug.gunInv;
+		
+		GameObject obj = ai.WorkingMemory.GetItem<GameObject>("Player");
+		if( obj == null || gunInv == null )
 		{
-			gunShoot.FireWeapon = false;
+			gunInv.InputFire = false;
 			return ActionResult.FAILURE;
 		}
-		
-		gunShoot.FireWeapon = VectorExtras.SplitChance ();  */
+
+		thug.PointAt( obj );
+
+		if( gunInv.guns[gunInv.ActiveWeapon].ClipAmmo == 0 )
+			gunInv.InputReload = true;
+		else
+			gunInv.InputReload = false;
+
+		gunInv.InputFire = VectorExtras.SplitChance ();
 
 
 		return ActionResult.RUNNING;

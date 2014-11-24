@@ -34,6 +34,7 @@ namespace Excelsion.WeaponSystem
 		[Range(0.0f, 10.0f)]internal float internal_accuracy;
 		internal float internal_reloadTime;
 		internal float internal_fireRate;
+		internal bool internal_infiniteAmmo;
 		#endregion
 
 		#region Effects
@@ -50,6 +51,15 @@ namespace Excelsion.WeaponSystem
 		public float Accuracy{ get{ return internal_accuracy; } set{ internal_accuracy = Mathf.Clamp( value, 0.0f, 10.0f ); }}
 		public float ReloadTime { get{ return internal_reloadTime; } set{ internal_reloadTime = Mathf.Abs(value); }}
 		public float FireRate{ get{ return internal_fireRate; } set{ internal_fireRate = Mathf.Abs(value); }}
+		public bool InfiniteAmmo{ get{ return internal_infiniteAmmo; } 
+			set{
+				internal_infiniteAmmo = value;
+				if( value == true )
+					internal_ammo = int.MaxValue;
+				else
+					Ammo = int.MaxValue;
+			}
+		}
 
 		public GameObject MuzzleEffectPrefab{ get{ return internal_muzzleEffect; } set{ internal_muzzleEffect = value; } }
 		public AudioClip ShotFiredAudio{ get{ return internal_shotFiredAudio; } set{ internal_shotFiredAudio = value; } }

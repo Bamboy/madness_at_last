@@ -114,11 +114,14 @@ namespace Excelsion.WeaponSystem
 		#region Weapon Selection
 		public void NextWeapon()
 		{
+			if( weaponCount <= 1 )
+				return;
+
 			int newWep = ActiveWeapon;
 			newWep++;
 			if( newWep == guns.Length ) 
 				newWep = 0; //We would get an Index Out Of Range error if we didn't change it!
-
+			Debug.Log( newWep );
 			int breakCounter = 0;
 			while((guns[newWep].Ammo <= 0 && guns[newWep].ClipAmmo <= 0) || hasWeapon[newWep] == false ) //Don't stop on a weapon unless we have it!
 			{
@@ -172,7 +175,7 @@ namespace Excelsion.WeaponSystem
 
 		void LateUpdate()
 		{
-			if( ActiveWeapon > -1 )
+			if( ActiveWeapon > -1 && ActiveWeapon < guns.Length && guns != null )
 			{
 				if( guns[ ActiveWeapon ].Ammo <= 0 && guns[ ActiveWeapon ].ClipAmmo <= 0 )
 				{
