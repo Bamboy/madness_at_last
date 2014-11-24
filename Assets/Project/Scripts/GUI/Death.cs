@@ -3,10 +3,10 @@ using System.Collections;
 
 public class Death : MonoBehaviour {
 	public Texture2D fadeToBlack;
-	private Color fade;
+	//private Color fade;
 
 	void Start(){
-		fade = Color.clear;
+		//fade = Color.clear;
 	}
 	void LateUpdate(){
 		if(Stats.PlayerUnit.instance.isDead){

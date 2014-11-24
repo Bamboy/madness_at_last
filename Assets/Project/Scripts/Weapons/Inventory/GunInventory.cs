@@ -5,7 +5,7 @@ using Excelsion.WeaponSystem.Weapons;
 
 ///////////////////////////////////
 /// By: Stephan "Bamboy" Ennen ////
-/// Last Updated: 11/13/14     ////
+/// Last Updated: 11/20/14     ////
 ///////////////////////////////////
 
 namespace Excelsion.WeaponSystem

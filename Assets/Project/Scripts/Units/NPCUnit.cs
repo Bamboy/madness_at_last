@@ -5,11 +5,11 @@ namespace Stats
 {
 	public class NPCUnit : Unit
 	{
-		private string type;
+		//private string type;
 
 		public void Init(string type)
 		{
-			this.type = type;
+			//this.type = type;
 			Init("Units/NPC", type);
 		}
 

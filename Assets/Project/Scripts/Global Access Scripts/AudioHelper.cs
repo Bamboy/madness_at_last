@@ -22,20 +22,20 @@ public enum SoundType
 public class AudioHelper : MonoBehaviour 
 {
 	#region Global Access
-	private static AudioHelper audio;
+	private static AudioHelper audHelper;
 	public static AudioHelper Get() //This makes it so we can remotely access this script from anywhere in the scene.
 	{
-		if( !audio ) //Check if we already have an instance of this script in the scene, if so just return it.
+		if( !audHelper ) //Check if we already have an instance of this script in the scene, if so just return it.
 		{
-			audio = GameObject.FindObjectOfType< AudioHelper >(); //Find this script in the scene.
-			if( !audio ) //Make sure we found something.
+			audHelper = GameObject.FindObjectOfType< AudioHelper >(); //Find this script in the scene.
+			if( !audHelper ) //Make sure we found something.
 			{
 				//Make a new object and attach this script to it. 
 				GameObject newObj = new GameObject("=== Audio Helper ===");
-				audio = newObj.AddComponent< AudioHelper >();
+				audHelper = newObj.AddComponent< AudioHelper >();
 			}
 		}
-		return audio;
+		return audHelper;
 	}
 	#endregion
 	#region Volume Accessors
@@ -125,29 +125,29 @@ public class AudioHelper : MonoBehaviour
 			obj.transform.position = pos;
 			obj.transform.parent = parent;
 
-			AudioSource audio = (AudioSource)obj.AddComponent<AudioSource>();
-			audio.clip = clip;
+			AudioSource audHelper = (AudioSource)obj.AddComponent<AudioSource>();
+			audHelper.clip = clip;
 
 			switch( type )
 			{
 				case SoundType.None:
-					audio.volume = volume * masterVolume;
+					audHelper.volume = volume * masterVolume;
 					break;
 				case SoundType.Effect:
-					audio.volume = volume * r_effectVolume;
+					audHelper.volume = volume * r_effectVolume;
 					break;
 				case SoundType.Music:
-					audio.volume = volume * r_musicVolume;
+					audHelper.volume = volume * r_musicVolume;
 					break;
 				case SoundType.Voice:
-					audio.volume = volume * r_voiceVolume;
+					audHelper.volume = volume * r_voiceVolume;
 					break;
 			}
 
-			audio.Play ();
+			audHelper.Play ();
 			GameObject.Destroy( obj, clip.length ); //Destroy the object after the sound is done playing.
 
-			return audio;
+			return audHelper;
 		}
 		else
 		{
@@ -174,13 +174,13 @@ public class AudioHelper : MonoBehaviour
 	}
 	public static AudioSource CreateAudioSource( Transform obj, AudioClip clip, float volume, float pitch )
 	{
-		AudioSource audio = obj.gameObject.AddComponent<AudioSource>();
+		AudioSource audHelper = obj.gameObject.AddComponent<AudioSource>();
 
-		audio.clip = clip;
-		audio.volume = Mathf.Clamp01( volume );
-		audio.pitch = Mathf.Clamp( pitch, -3.0f, 3.0f );
+		audHelper.clip = clip;
+		audHelper.volume = Mathf.Clamp01( volume );
+		audHelper.pitch = Mathf.Clamp( pitch, -3.0f, 3.0f );
 
-		return audio;
+		return audHelper;
 	}
 	#endregion
 
