@@ -3,8 +3,6 @@ using System.Collections;
 using Excelsion.WeaponSystem;
 
 public class WeaponAnimation : MonoBehaviour {
-	private GunDefinitions gunDef;
-	private WeaponInventory weapInv;
 	private Animator anim;
 	private bool reload;
 

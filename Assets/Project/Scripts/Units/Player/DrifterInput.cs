@@ -17,6 +17,7 @@ public class DrifterInput : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		Main.Get();
 		drifter = GetComponent< FirstPersonDrifter >();
 	}
 	
